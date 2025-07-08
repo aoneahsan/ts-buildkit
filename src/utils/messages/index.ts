@@ -1,5 +1,5 @@
 /**
- * @summary Messages from zaions-tool-kit package
+ * @summary Messages from ts-tool-kit package
  */
 export const ztkMessages = {
   general: {

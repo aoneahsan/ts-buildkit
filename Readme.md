@@ -1,6 +1,6 @@
 # ZTK - Zaions Tool Kit
 
-[![npm version](https://img.shields.io/npm/v/zaions-tool-kit.svg)](https://www.npmjs.com/package/zaions-tool-kit)
+[![npm version](https://img.shields.io/npm/v/ts-tool-kit.svg)](https://www.npmjs.com/package/ts-tool-kit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8%2B-blue)](https://www.typescriptlang.org/)
 
@@ -19,19 +19,19 @@ A comprehensive TypeScript utility library providing a wide range of tools for m
 
 ```bash
 # Using npm
-npm install zaions-tool-kit
+npm install ts-tool-kit
 
 # Using yarn
-yarn add zaions-tool-kit
+yarn add ts-tool-kit
 
 # Using pnpm
-pnpm add zaions-tool-kit
+pnpm add ts-tool-kit
 ```
 
 ## Quick Start
 
 ```typescript
-import { configureZTK, isValidEmail, generateUUID } from 'zaions-tool-kit';
+import { configureZTK, isValidEmail, generateUUID } from 'ts-tool-kit';
 
 // Configure the library (required for crypto functions)
 configureZTK({
@@ -58,7 +58,7 @@ import {
   decryptData,
   encryptWithSecretKey,
   decryptWithSecretKey,
-} from 'zaions-tool-kit';
+} from 'ts-tool-kit';
 
 // Using explicit secret key
 const encrypted = encryptData('sensitive data', 'your-secret-key');
@@ -82,7 +82,7 @@ import {
   validatePhoneNumber,
   validateRequiredPermissions,
   PermissionCheckModeEnum,
-} from 'zaions-tool-kit';
+} from 'ts-tool-kit';
 
 // Basic validation
 isValidEmail('user@example.com'); // true
@@ -110,7 +110,7 @@ import {
   generateSlug,
   escapeRegex,
   containSpecialCharacters,
-} from 'zaions-tool-kit';
+} from 'ts-tool-kit';
 
 truncateString('This is a long text that will be truncated', 20); // 'This is a long text...'
 convertToTitleCase('hello world'); // 'Hello World'
@@ -131,7 +131,7 @@ import {
   arrayMoveMutable,
   arrayMoveImmutable,
   checkEqualityOfTwoArray,
-} from 'zaions-tool-kit';
+} from 'ts-tool-kit';
 
 // Flatten nested arrays
 flattenArray([1, [2, [3, 4]], 5]); // [1, 2, 3, 4, 5]
@@ -166,7 +166,7 @@ import {
   isNotNullOrUndefined,
   isStringVariable,
   isZValidNumber,
-} from 'zaions-tool-kit';
+} from 'ts-tool-kit';
 
 isArray([1, 2, 3]); // true
 isArray([1, 2, 3], true); // true (checks length > 0)
@@ -191,7 +191,7 @@ import {
   getDateFromFrbTimestamp,
   convertToDateTimestampToStoreInDB,
   getRemainingTimeForCountDown,
-} from 'zaions-tool-kit';
+} from 'ts-tool-kit';
 
 // Format dates
 dateFormat(new Date(), 'YYYY-MM-DD'); // e.g., '2023-05-15'
@@ -219,7 +219,7 @@ import {
   hasLeadingOrTrailingSlash,
   removeLeadingTrailingBackslash,
   replaceUrlDynamicParts,
-} from 'zaions-tool-kit';
+} from 'ts-tool-kit';
 
 isValidUrl('https://example.com'); // true
 addUrlProtocolHandler('example.com'); // 'https://example.com'
@@ -236,7 +236,7 @@ See [URL Utilities Documentation](./url-utilities.md) for more details.
 Utilities for managing CSS class names:
 
 ```typescript
-import { classNames, classNamesBind, classNamesDedupe } from 'zaions-tool-kit';
+import { classNames, classNamesBind, classNamesDedupe } from 'ts-tool-kit';
 
 classNames('foo', 'bar'); // 'foo bar'
 classNames('foo', { bar: true, baz: false }); // 'foo bar'
@@ -264,7 +264,7 @@ import {
   generateCouponCode,
   validateCouponCode,
   checkIfCouponCodeHasBadWord,
-} from 'zaions-tool-kit';
+} from 'ts-tool-kit';
 
 // Generate a coupon code
 const coupon = generateCouponCode(); // e.g., 'ABCD-EFGH-IJKL'
@@ -291,7 +291,7 @@ import {
   FormFieldsEnum,
   ResponseStatusEnum,
   varTypesEnum,
-} from 'zaions-tool-kit';
+} from 'ts-tool-kit';
 
 // User roles
 const adminRole = _UserRoleEnum.admin; // 2
@@ -319,7 +319,7 @@ import type {
   IPaginationOptions,
   DBItemGenericDataType,
   FormItemGenericDataType,
-} from 'zaions-tool-kit';
+} from 'ts-tool-kit';
 
 // Generic object
 const obj: IGenericObject = { key: 'value' };
@@ -348,7 +348,7 @@ import {
   IUser,
   ITopUp,
   IWithdraw,
-} from 'zaions-tool-kit/play-and-win';
+} from 'ts-tool-kit/play-and-win';
 ```
 
 See [Gaming Support Documentation](./gaming-support.md) for more details.
@@ -366,7 +366,7 @@ import {
   mapPermissionsToStrings,
   PermissionCheckModeEnum,
   PermissionEnum,
-} from 'zaions-tool-kit';
+} from 'ts-tool-kit';
 
 // Check if user has all required permissions
 const hasAllPermissions = validateRequiredPermissions({
@@ -407,7 +407,7 @@ import {
   validatePhoneNumber,
   validateURL,
   fieldsValidation,
-} from 'zaions-tool-kit';
+} from 'ts-tool-kit';
 
 // Validate email
 validateEmail('user@example.com'); // true
@@ -439,7 +439,7 @@ import {
   getImageBase64Url,
   validateFileBeforeUpload,
   allowedImageTypes,
-} from 'zaions-tool-kit';
+} from 'ts-tool-kit';
 
 // Check if image type is allowed
 imageTypeAllowed('image/jpeg'); // true
@@ -482,7 +482,7 @@ import {
   FrbOrderbyDirectionEnum,
   FrbWhereConditionEnum,
   DBColumnKeysShortFormEnum,
-} from 'zaions-tool-kit';
+} from 'ts-tool-kit';
 
 // Default query parameters
 const defaults = frbCollectionQueryDefaults;
@@ -513,28 +513,25 @@ import {
   IGameRoom,
   IUser,
   ITransaction,
-} from 'zaions-tool-kit/play-and-win';
+} from 'ts-tool-kit/play-and-win';
 ```
 
 ### Roommate Module
 
 ```typescript
-import {
-  ConstellationsEnum,
-  constellationsVal,
-} from 'zaions-tool-kit/roommate';
+import { ConstellationsEnum, constellationsVal } from 'ts-tool-kit/roommate';
 ```
 
 ### Zod Integration
 
 ```typescript
-import { numericEnum } from 'zaions-tool-kit/require-package/zod';
+import { numericEnum } from 'ts-tool-kit/require-package/zod';
 ```
 
 ### Day.js Integration
 
 ```typescript
-import { dayjs } from 'zaions-tool-kit/require-package/dayjs';
+import { dayjs } from 'ts-tool-kit/require-package/dayjs';
 ```
 
 See [Specialized Modules Documentation](./specialized-modules.md) for more details.
@@ -571,7 +568,7 @@ All of our packages are developed with 100% typescript support/safety, mean if y
 
 #### there are other packages named \"zaions-express-tool-kit\", \"zaions-react-tool-kit\", and \"zaions-react-ui-kit\". while this package is generic and contains code which will work both on frontend (reactjs/typescript) as well as on backend (nodejs/typescript) the other packages are specific to server side or client side (due to the dependencies used in them and their usage nature
 
-- [zaions-tool-kit](https://www.npmjs.com/package/zaions-tool-kit?activeTab=readme)
+- [ts-tool-kit](https://www.npmjs.com/package/ts-tool-kit?activeTab=readme)
   - our most generic package, can be used in frontend or backend, frontend/backend compatible.
   - contains a lot of helper functions, utils, messages, constants and a lot more.
   - why to use this?
