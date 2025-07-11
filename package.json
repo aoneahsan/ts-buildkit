@@ -1,6 +1,6 @@
 {
   "name": "ts-buildkit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Typescript Build Kit, this is generic build kit package created by Ahsan Mahmood (https://aoneahsan.com), this package is generic and contains code which will work both on frontend (ReactJs/typescript/etc) as well as on backend (nodejs/typescript/etc). please do react out if you face any issue in packages i deliver.",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",

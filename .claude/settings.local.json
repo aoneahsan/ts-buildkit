@@ -79,7 +79,10 @@
       "Bash(yarn list:*)",
       "Bash(yarn test)",
       "Bash(yarn clean)",
-      "Bash(yarn tsc:*)"
+      "Bash(yarn tsc:*)",
+      "Bash(npm audit:*)",
+      "Bash(yarn audit)",
+      "Bash(yarn outdated)"
     ],
     "deny": []
   }
