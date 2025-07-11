@@ -23,10 +23,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/zaions/tool-kit.git"
+    "url": "git+ssh://git@github.com/aoneahsan/ts-buildkit.git"
   },
   "keywords": [
-    "zaions",
+    "typescript",
     "tools",
     "kit",
     "tool kit",
@@ -42,18 +42,18 @@
     "tests",
     "aoneahsan",
     "ahsan mahmood",
-    "zaions packages"
+    "buildkit"
   ],
   "author": {
     "name": "Ahsan Mahmood",
     "email": "aoneahsna@gmail.com",
-    "url": "https://zaions.com/ahsan"
+    "url": "https://aoneahsan.com"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zaions/tool-kit/issues"
+    "url": "https://github.com/aoneahsan/ts-buildkit/issues"
   },
-  "homepage": "https://github.com/zaions/tool-kit#readme",
+  "homepage": "https://github.com/aoneahsan/ts-buildkit#readme",
   "engines": {
     "node": ">=22.2.0",
     "npm": ">=10.7.0",
@@ -94,11 +94,11 @@
       "url": "https://aoneahsan.com"
     }
   ],
-  "displayName": "Zaions Tool Kit",
+  "displayName": "TypeScript Build Kit",
   "engineStrict": true,
   "funding": {
     "type": "individual",
-    "url": "https://www.patreon.com/zaions"
+    "url": "https://www.patreon.com/aoneahsan"
   },
   "private": false,
   "publishConfig": {

@@ -1,5 +1,5 @@
 /**
- * @summary Messages from ts-tool-kit package
+ * @summary Messages from ts-buildkit package
  */
 export const ztkMessages = {
   general: {

@@ -3,7 +3,7 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-ts-tool-kit is a TypeScript utility library providing 100+ helper functions for modern web development. It's designed to work in both Node.js and browser environments with full TypeScript support and tree-shaking capabilities.
+ts-buildkit is a TypeScript utility library providing 100+ helper functions for modern web development. It's designed to work in both Node.js and browser environments with full TypeScript support and tree-shaking capabilities.
 
 ## Essential Commands
 
@@ -26,10 +26,10 @@ yarn deploy     # Build and publish to npm
 
 ### Module Structure
 The library exports multiple entry points for tree-shaking:
-- **Main module**: Core utilities via `ts-tool-kit`
-- **Gaming module**: `ts-tool-kit/play-and-win` - Gaming types and utilities
-- **Roommate module**: `ts-tool-kit/roommate` - Roommate finding functionality
-- **Optional deps**: `ts-tool-kit/require-package/{zod,dayjs,crypto-js}` - Wrapped peer dependencies
+- **Main module**: Core utilities via `ts-buildkit`
+- **Gaming module**: `ts-buildkit/play-and-win` - Gaming types and utilities
+- **Roommate module**: `ts-buildkit/roommate` - Roommate finding functionality
+- **Optional deps**: `ts-buildkit/require-package/{zod,dayjs,crypto-js}` - Wrapped peer dependencies
 
 ### Path Aliases
 TypeScript is configured with these aliases:
@@ -57,7 +57,7 @@ TypeScript is configured with these aliases:
 ### Cryptography Configuration
 Any code using crypto utilities requires initialization:
 ```typescript
-import { configureZTK } from 'ts-tool-kit';
+import { configureZTK } from 'ts-buildkit';
 configureZTK({ cryptoSecret: 'secure-key' });
 ```
 
