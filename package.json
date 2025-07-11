@@ -1,7 +1,7 @@
 {
-  "name": "ts-tool-kit",
-  "version": "0.1.6",
-  "description": "Typescript Tool Kit, this is generic tool kit package created by Ahsan Mahmood (https://aoneahsan.com), this package is generic and contains code which will work both on frontend (ReactJs/typescript/etc) as well as on backend (nodejs/typescript/etc). please do react out if you face any issue in packages i deliver.",
+  "name": "ts-buildkit",
+  "version": "0.0.1",
+  "description": "Typescript Build Kit, this is generic build kit package created by Ahsan Mahmood (https://aoneahsan.com), this package is generic and contains code which will work both on frontend (ReactJs/typescript/etc) as well as on backend (nodejs/typescript/etc). please do react out if you face any issue in packages i deliver.",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
