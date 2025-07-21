@@ -36,7 +36,7 @@ Some features require additional packages. Install only what you need:
 # For cryptography features
 npm install crypto-js
 
-# For advanced date handling  
+# For advanced date handling
 npm install dayjs
 
 # For validation schemas
@@ -46,11 +46,11 @@ npm install zod
 ## Quick Start
 
 ```typescript
-import { 
-  isValidEmail, 
-  formatUSD, 
+import {
+  isValidEmail,
+  formatUSD,
   generateSlug,
-  generateUUID 
+  generateUUID,
 } from 'ts-buildkit';
 
 // Validate email
@@ -78,8 +78,8 @@ If using cryptography utilities, configure the library first:
 import { configureZTK } from 'ts-buildkit';
 
 // Initialize with your secret key
-configureZTK({ 
-  cryptoSecret: process.env.CRYPTO_SECRET || 'your-secret-key' 
+configureZTK({
+  cryptoSecret: process.env.CRYPTO_SECRET || 'your-secret-key',
 });
 
 // Now you can use crypto functions
@@ -94,27 +94,27 @@ const decrypted = decryptData(encrypted);
 ### String Utilities
 
 ```typescript
-import { 
+import {
   convertToTitleCase,
   truncateString,
   formatCamelCaseToTitle,
-  removeLeadingTrailingChars 
+  removeLeadingTrailingChars,
 } from 'ts-buildkit';
 
-convertToTitleCase('hello world');        // 'Hello world'
-truncateString('Long text here', 10);     // 'Long text...'
-formatCamelCaseToTitle('helloWorld');     // 'Hello World'
+convertToTitleCase('hello world'); // 'Hello world'
+truncateString('Long text here', 10); // 'Long text...'
+formatCamelCaseToTitle('helloWorld'); // 'Hello World'
 removeLeadingTrailingChars('/path/', '/'); // 'path'
 ```
 
 ### Validation
 
 ```typescript
-import { 
+import {
   validateEmail,
   validatePhoneNumber,
   validateURL,
-  isZNonEmptyString 
+  isZNonEmptyString,
 } from 'ts-buildkit';
 
 // Email validation with domain restriction
@@ -135,13 +135,16 @@ isZNonEmptyString('hello'); // true
 ### Array Operations
 
 ```typescript
-import { 
+import {
   flattenArray,
   checkEqualityOfTwoArray,
-  arrayMoveImmutable 
+  arrayMoveImmutable,
 } from 'ts-buildkit';
 
-flattenArray([[1, 2], [3, 4]]);           // [1, 2, 3, 4]
+flattenArray([
+  [1, 2],
+  [3, 4],
+]); // [1, 2, 3, 4]
 checkEqualityOfTwoArray(['a', 'b'], ['b', 'a']); // true
 arrayMoveImmutable(['a', 'b', 'c'], 0, 2); // ['b', 'c', 'a']
 ```
@@ -149,27 +152,27 @@ arrayMoveImmutable(['a', 'b', 'c'], 0, 2); // ['b', 'c', 'a']
 ### Object Utilities
 
 ```typescript
-import { 
+import {
   isObject,
   getObjectKey,
   isEqual,
-  buildFilterObject 
+  buildFilterObject,
 } from 'ts-buildkit';
 
-isObject({ a: 1 });                    // true
-getObjectKey({ a: 1, b: 2 }, 2);      // 'b'
-isEqual({ a: 1 }, { a: 1 });          // true
+isObject({ a: 1 }); // true
+getObjectKey({ a: 1, b: 2 }, 2); // 'b'
+isEqual({ a: 1 }, { a: 1 }); // true
 buildFilterObject({ a: 1, b: null }); // { a: 1 }
 ```
 
 ### Date & Time
 
 ```typescript
-import { 
+import {
   dayjs,
   getTimeInUnit,
   getRemainingTimeForCountDown,
-  TimeUnitEnum 
+  TimeUnitEnum,
 } from 'ts-buildkit';
 
 // Using dayjs
@@ -186,11 +189,11 @@ const remaining = getRemainingTimeForCountDown('2024-12-31');
 ### Image Handling
 
 ```typescript
-import { 
+import {
   imageUrlToBase64,
   getImageDimensions,
   getImageAspectRatio,
-  validateFileBeforeUpload 
+  validateFileBeforeUpload,
 } from 'ts-buildkit';
 
 // Convert image URL to base64
@@ -206,18 +209,18 @@ const ratio = await getImageAspectRatio(imageFile); // 1.777...
 // Validate file before upload
 const validation = validateFileBeforeUpload(file, {
   maxSize: 5 * 1024 * 1024, // 5MB
-  allowedTypes: ['image/jpeg', 'image/png']
+  allowedTypes: ['image/jpeg', 'image/png'],
 });
 ```
 
 ### Permissions & Roles
 
 ```typescript
-import { 
+import {
   hasPermission,
   validateUserPermissions,
   RoleEnum,
-  PermissionEnum 
+  PermissionEnum,
 } from 'ts-buildkit';
 
 const userPermissions = ['read', 'write'];
@@ -230,7 +233,7 @@ validateUserPermissions({
   userPermissions,
   requiredPermissions: ['read'],
   excludedPermissions: ['admin'],
-  checkMode: 'AND'
+  checkMode: 'AND',
 }); // true
 ```
 
@@ -241,11 +244,11 @@ validateUserPermissions({
 For gaming and gambling applications:
 
 ```typescript
-import { 
+import {
   GameTypeEnum,
   IGame,
   IGameRoom,
-  TransactionTypeEnum 
+  TransactionTypeEnum,
 } from 'ts-buildkit/play-and-win';
 
 // Use gaming-specific types and utilities
@@ -263,11 +266,11 @@ const game: IGame = {
 For roommate finding applications:
 
 ```typescript
-import { 
+import {
   GenderEnum,
   IPlace,
   IRoommateUser,
-  CleanlinessEnum 
+  CleanlinessEnum,
 } from 'ts-buildkit/roommate';
 
 // Use roommate-specific types
@@ -277,7 +280,7 @@ const user: IRoommateUser = {
   lifestyle: {
     cleanliness: CleanlinessEnum.VERY_TIDY,
     // ...
-  }
+  },
 };
 ```
 
@@ -286,28 +289,28 @@ const user: IRoommateUser = {
 The library provides extensive enums for type safety:
 
 ```typescript
-import { 
+import {
   RequestTypeEnum,
   ResponseStatusEnum,
   TimeUnitEnum,
-  BooleanEnum 
+  BooleanEnum,
 } from 'ts-buildkit';
 
 // HTTP methods
-RequestTypeEnum.GET    // 'GET'
-RequestTypeEnum.POST   // 'POST'
+RequestTypeEnum.GET; // 'GET'
+RequestTypeEnum.POST; // 'POST'
 
 // Response statuses
-ResponseStatusEnum.SUCCESS // 'success'
-ResponseStatusEnum.ERROR   // 'error'
+ResponseStatusEnum.SUCCESS; // 'success'
+ResponseStatusEnum.ERROR; // 'error'
 
 // Time units
-TimeUnitEnum.HOURS   // 'hours'
-TimeUnitEnum.DAYS    // 'days'
+TimeUnitEnum.HOURS; // 'hours'
+TimeUnitEnum.DAYS; // 'days'
 
 // Boolean strings
-BooleanEnum.TRUE  // 'true'
-BooleanEnum.FALSE // 'false'
+BooleanEnum.TRUE; // 'true'
+BooleanEnum.FALSE; // 'false'
 ```
 
 ## Type Definitions
@@ -315,11 +318,11 @@ BooleanEnum.FALSE // 'false'
 The library exports comprehensive TypeScript types:
 
 ```typescript
-import type { 
+import type {
   IGenericObject,
   IPaginationOptions,
   IDefaultDBColumns,
-  GeolocationCoordinates 
+  GeolocationCoordinates,
 } from 'ts-buildkit';
 
 // Use in your interfaces
@@ -331,7 +334,7 @@ interface User extends IDefaultDBColumns {
 // Pagination
 const options: IPaginationOptions = {
   page: 1,
-  limit: 20
+  limit: 20,
 };
 ```
 
@@ -340,9 +343,9 @@ const options: IPaginationOptions = {
 Built-in error handling utilities:
 
 ```typescript
-import { 
+import {
   reportCustomError,
-  getStripeErrorMessageByErrorCode 
+  getStripeErrorMessageByErrorCode,
 } from 'ts-buildkit';
 
 try {
@@ -361,10 +364,10 @@ const message = getStripeErrorMessageByErrorCode('card_declined');
 Detect device and platform:
 
 ```typescript
-import { 
+import {
   detectDeviceAndViewMode,
   PlatformTypeEnum,
-  CapacitorPlatformEnum 
+  CapacitorPlatformEnum,
 } from 'ts-buildkit';
 
 const device = detectDeviceAndViewMode();
@@ -376,24 +379,24 @@ const device = detectDeviceAndViewMode();
 Access predefined constants:
 
 ```typescript
-import { 
+import {
   apiConstants,
   dateFormat,
   mediaScales,
-  allowedImageTypes 
+  allowedImageTypes,
 } from 'ts-buildkit';
 
 // API defaults
-apiConstants.defaultTimeout // 30000
+apiConstants.defaultTimeout; // 30000
 
 // Date formats
-dateFormat.standard // 'YYYY-MM-DD'
+dateFormat.standard; // 'YYYY-MM-DD'
 
 // Media breakpoints
-mediaScales.mobile  // { min: 0, max: 767 }
+mediaScales.mobile; // { min: 0, max: 767 }
 
 // Allowed image types
-allowedImageTypes // ['image/jpeg', 'image/png', ...]
+allowedImageTypes; // ['image/jpeg', 'image/png', ...]
 ```
 
 ## Best Practices
@@ -431,7 +434,7 @@ function processInput(input: unknown) {
     // TypeScript knows input is string
     return input.toUpperCase();
   }
-  
+
   if (isZValidNumber(input)) {
     // TypeScript knows input is number
     return input * 2;

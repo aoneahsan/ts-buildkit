@@ -12,9 +12,9 @@ export function numericEnum<TValues extends readonly number[]>(
   return ZOD.number().superRefine((val, ctx) => {
     if (!values.includes(val)) {
       ctx.addIssue({
-        code: ZOD.ZodIssueCode.invalid_enum_value,
-        options: [...values],
-        received: val,
+        code: 'invalid_value',
+        values: [...values],
+        input: val,
       });
     }
   }) as ZodType<TValues[number]>;

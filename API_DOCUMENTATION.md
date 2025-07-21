@@ -247,7 +247,7 @@ Converts a dollar amount to Stripe's smallest currency unit (cents).
 ```typescript
 import { formatStripeAmount } from 'ts-buildkit';
 
-formatStripeAmount(10.50); // 1050
+formatStripeAmount(10.5); // 1050
 formatStripeAmount(100); // 10000
 ```
 
@@ -284,7 +284,10 @@ Flattens a two-dimensional array into a one-dimensional array.
 ```typescript
 import { flattenArray } from 'ts-buildkit';
 
-flattenArray([[1, 2], [3, 4]]); // [1, 2, 3, 4]
+flattenArray([
+  [1, 2],
+  [3, 4],
+]); // [1, 2, 3, 4]
 flattenArray([['a'], ['b', 'c']]); // ['a', 'b', 'c']
 ```
 
@@ -382,12 +385,12 @@ Builds a filter object by removing null, undefined, and empty values.
 ```typescript
 import { buildFilterObject } from 'ts-buildkit';
 
-buildFilterObject({ 
-  name: 'John', 
-  age: null, 
-  city: '', 
-  active: true 
-}); 
+buildFilterObject({
+  name: 'John',
+  age: null,
+  city: '',
+  active: true,
+});
 // { name: 'John', active: true }
 ```
 
@@ -398,11 +401,11 @@ Gets an array of keys that have non-empty values.
 ```typescript
 import { getActiveFilters } from 'ts-buildkit';
 
-getActiveFilters({ 
-  name: 'John', 
-  age: null, 
-  city: 'NYC' 
-}); 
+getActiveFilters({
+  name: 'John',
+  age: null,
+  city: 'NYC',
+});
 // ['name', 'city']
 ```
 
@@ -450,13 +453,13 @@ Advanced URL validation with options.
 ```typescript
 import { validateURL } from 'ts-buildkit';
 
-validateURL('https://example.com'); 
+validateURL('https://example.com');
 // { isValid: true }
 
-validateURL('example.com', { requireProtocol: false }); 
+validateURL('example.com', { requireProtocol: false });
 // { isValid: true }
 
-validateURL('ftp://example.com', { allowedProtocols: ['http', 'https'] }); 
+validateURL('ftp://example.com', { allowedProtocols: ['http', 'https'] });
 // { isValid: false, error: 'Invalid protocol' }
 ```
 
@@ -479,10 +482,10 @@ Validates and formats phone numbers.
 ```typescript
 import { validatePhoneNumber } from 'ts-buildkit';
 
-validatePhoneNumber('+1234567890'); 
+validatePhoneNumber('+1234567890');
 // { isValid: true, formatted: '+1 234-567-890' }
 
-validatePhoneNumber('1234567890', 'US'); 
+validatePhoneNumber('1234567890', 'US');
 // { isValid: true, formatted: '+1 234-567-890' }
 ```
 
@@ -506,10 +509,10 @@ Validates input against allowed character types.
 ```typescript
 import { validateInputCharacters } from 'ts-buildkit';
 
-validateInputCharacters('Hello123', ['alphabets', 'numbers']); 
+validateInputCharacters('Hello123', ['alphabets', 'numbers']);
 // { isValid: true, invalidChars: [] }
 
-validateInputCharacters('Hello@123', ['alphabets', 'numbers']); 
+validateInputCharacters('Hello@123', ['alphabets', 'numbers']);
 // { isValid: false, invalidChars: ['@'] }
 ```
 
@@ -545,10 +548,10 @@ Replaces dynamic parts in URL template.
 ```typescript
 import { replaceUrlDynamicParts } from 'ts-buildkit';
 
-replaceUrlDynamicParts('/users/:id/posts/:postId', { 
-  id: 123, 
-  postId: 456 
-}); 
+replaceUrlDynamicParts('/users/:id/posts/:postId', {
+  id: 123,
+  postId: 456,
+});
 // '/users/123/posts/456'
 ```
 
@@ -609,7 +612,7 @@ Creates a data URL from base64 string.
 ```typescript
 import { getImageBase64Url } from 'ts-buildkit';
 
-getImageBase64Url('iVBORw0KGgo...', 'image/png'); 
+getImageBase64Url('iVBORw0KGgo...', 'image/png');
 // 'data:image/png;base64,iVBORw0KGgo...'
 ```
 
@@ -676,9 +679,9 @@ Converts Firebase timestamp to JavaScript Date.
 ```typescript
 import { getDateFromFrbTimestamp } from 'ts-buildkit';
 
-const date = getDateFromFrbTimestamp({ 
-  seconds: 1672531200, 
-  nanoseconds: 0 
+const date = getDateFromFrbTimestamp({
+  seconds: 1672531200,
+  nanoseconds: 0,
 });
 // Date object
 ```
@@ -886,7 +889,7 @@ validateUserPermissions({
   userPermissions: ['read', 'write'],
   requiredPermissions: ['read'],
   excludedPermissions: ['admin'],
-  checkMode: 'AND' // or 'OR'
+  checkMode: 'AND', // or 'OR'
 }); // true
 ```
 
@@ -899,7 +902,7 @@ import { getPermissions } from 'ts-buildkit';
 
 const permissions = getPermissions({
   includeList: ['user', 'admin'],
-  excludeList: ['super_admin']
+  excludeList: ['super_admin'],
 });
 ```
 
@@ -912,7 +915,7 @@ import { mapPermissionsToStrings, PermissionEnum } from 'ts-buildkit';
 
 const strings = mapPermissionsToStrings([
   PermissionEnum.READ,
-  PermissionEnum.WRITE
+  PermissionEnum.WRITE,
 ]);
 // ['read', 'write']
 ```
@@ -971,7 +974,7 @@ Gets user-friendly Stripe error messages.
 ```typescript
 import { getStripeErrorMessageByErrorCode } from 'ts-buildkit';
 
-getStripeErrorMessageByErrorCode('card_declined'); 
+getStripeErrorMessageByErrorCode('card_declined');
 // 'Your card was declined. Please try another payment method.'
 ```
 
@@ -982,7 +985,7 @@ Gets Stripe requirement messages.
 ```typescript
 import { getStripeErrorMessageByRequirement } from 'ts-buildkit';
 
-getStripeErrorMessageByRequirement('past_due'); 
+getStripeErrorMessageByRequirement('past_due');
 // 'Account has past due requirements'
 ```
 
@@ -993,7 +996,7 @@ Gets Stripe disabled reason messages.
 ```typescript
 import { getStripeErrorMessageByDisabledCode } from 'ts-buildkit';
 
-getStripeErrorMessageByDisabledCode('rejected.fraud'); 
+getStripeErrorMessageByDisabledCode('rejected.fraud');
 // 'Account rejected due to suspected fraud'
 ```
 
@@ -1125,7 +1128,7 @@ Checks if value is a function.
 import { isFunction } from 'ts-buildkit';
 
 isFunction(() => {}); // true
-isFunction(function() {}); // true
+isFunction(function () {}); // true
 isFunction('function'); // false
 ```
 
@@ -1174,14 +1177,14 @@ import { checkForDuplicateEnumValues } from 'ts-buildkit';
 
 enum Status {
   ACTIVE = 'active',
-  INACTIVE = 'inactive'
+  INACTIVE = 'inactive',
 }
 
 checkForDuplicateEnumValues(Status); // No error
 
 enum Invalid {
   A = 'same',
-  B = 'same' // This will throw error
+  B = 'same', // This will throw error
 }
 ```
 
@@ -1204,7 +1207,7 @@ Calculates distance between two coordinates in kilometers.
 import { calcCrow } from 'ts-buildkit';
 
 // Distance between New York and Los Angeles
-calcCrow(40.7128, -74.0060, 34.0522, -118.2437); // ~3935.74 km
+calcCrow(40.7128, -74.006, 34.0522, -118.2437); // ~3935.74 km
 ```
 
 #### `getPaginationParams(options: IPaginationOptions): { limit: number; offset: number }`
@@ -1214,10 +1217,10 @@ Calculates pagination parameters.
 ```typescript
 import { getPaginationParams } from 'ts-buildkit';
 
-getPaginationParams({ page: 2, limit: 20 }); 
+getPaginationParams({ page: 2, limit: 20 });
 // { limit: 20, offset: 20 }
 
-getPaginationParams({ page: 1, limit: 10 }); 
+getPaginationParams({ page: 1, limit: 10 });
 // { limit: 10, offset: 0 }
 ```
 
@@ -1230,7 +1233,7 @@ import { validateFileBeforeUpload } from 'ts-buildkit';
 
 validateFileBeforeUpload(file, {
   maxSize: 5 * 1024 * 1024, // 5MB
-  allowedTypes: ['image/jpeg', 'image/png']
+  allowedTypes: ['image/jpeg', 'image/png'],
 });
 // { isValid: true } or { isValid: false, error: 'File too large' }
 ```
@@ -1339,10 +1342,10 @@ Generates coupon codes.
 import { generateCouponCode } from 'ts-buildkit';
 
 generateCouponCode(); // 'ABC123'
-generateCouponCode({ 
-  length: 8, 
+generateCouponCode({
+  length: 8,
   prefix: 'SAVE',
-  suffix: '2023'
+  suffix: '2023',
 }); // 'SAVE-ABCD-2023'
 ```
 
@@ -1356,7 +1359,7 @@ import { validateCouponCode } from 'ts-buildkit';
 validateCouponCode('ABC123'); // true
 validateCouponCode('SAVE-ABCD-2023', {
   prefix: 'SAVE',
-  suffix: '2023'
+  suffix: '2023',
 }); // true
 ```
 
@@ -1790,7 +1793,7 @@ import { IGenericObject } from 'ts-buildkit';
 const obj: IGenericObject = {
   name: 'John',
   age: 30,
-  active: true
+  active: true,
 };
 ```
 
@@ -1804,7 +1807,7 @@ import { IPaginationOptions } from 'ts-buildkit';
 const options: IPaginationOptions = {
   page: 1,
   limit: 20,
-  offset: 0
+  offset: 0,
 };
 ```
 
@@ -1849,7 +1852,7 @@ import { IFrbCollectionQueryItem } from 'ts-buildkit';
 const query: IFrbCollectionQueryItem = {
   field: 'status',
   condition: FrbWhereConditionEnum.EQUAL,
-  value: 'active'
+  value: 'active',
 };
 ```
 
@@ -1878,7 +1881,7 @@ const permCheck: IHasRequiredPermissions = {
   userPermissions: ['read', 'write'],
   requiredPermissions: ['read'],
   excludedPermissions: ['admin'],
-  checkMode: PermissionCheckModeEnum.AND
+  checkMode: PermissionCheckModeEnum.AND,
 };
 ```
 
@@ -1894,7 +1897,7 @@ const hookParams: IUseHasRequiredPermissions = {
   requiredPermissions: ['read'],
   excludedPermissions: ['admin'],
   checkMode: PermissionCheckModeEnum.AND,
-  skip: false
+  skip: false,
 };
 ```
 
@@ -1907,7 +1910,7 @@ import { IUseHasRequiredPermissionsReturn } from 'ts-buildkit';
 
 const result: IUseHasRequiredPermissionsReturn = {
   hasRequiredPermissions: true,
-  isLoading: false
+  isLoading: false,
 };
 ```
 
@@ -1922,12 +1925,12 @@ import { GeolocationCoordinates } from 'ts-buildkit';
 
 const coords: GeolocationCoordinates = {
   latitude: 40.7128,
-  longitude: -74.0060,
+  longitude: -74.006,
   accuracy: 10,
   altitude: null,
   altitudeAccuracy: null,
   heading: null,
-  speed: null
+  speed: null,
 };
 ```
 
@@ -1939,8 +1942,10 @@ Capacitor geolocation response.
 import { GetCapGeoLocationApiDataResponse } from 'ts-buildkit';
 
 const response: GetCapGeoLocationApiDataResponse = {
-  coords: { /* GeolocationCoordinates */ },
-  timestamp: 1234567890123
+  coords: {
+    /* GeolocationCoordinates */
+  },
+  timestamp: 1234567890123,
 };
 ```
 
@@ -1954,7 +1959,7 @@ import { PlatformData } from 'ts-buildkit';
 const platform: PlatformData = {
   platform: 'web',
   isNative: false,
-  isWeb: true
+  isWeb: true,
 };
 ```
 
@@ -1963,11 +1968,7 @@ const platform: PlatformData = {
 Import from `ts-buildkit/play-and-win`:
 
 ```typescript
-import { 
-  GameTypeEnum, 
-  IGame, 
-  IGameRoom 
-} from 'ts-buildkit/play-and-win';
+import { GameTypeEnum, IGame, IGameRoom } from 'ts-buildkit/play-and-win';
 ```
 
 ### Gaming Enums
@@ -2130,11 +2131,7 @@ import { timeLimits } from 'ts-buildkit/play-and-win';
 Import from `ts-buildkit/roommate`:
 
 ```typescript
-import { 
-  GenderEnum, 
-  IPlace, 
-  IRoommateUser 
-} from 'ts-buildkit/roommate';
+import { GenderEnum, IPlace, IRoommateUser } from 'ts-buildkit/roommate';
 ```
 
 ### Roommate Enums
@@ -2428,10 +2425,10 @@ try {
 ### Stripe Error Messages
 
 ```typescript
-import { 
+import {
   getStripeErrorMessageByErrorCode,
   getStripeErrorMessageByRequirement,
-  getStripeErrorMessageByDisabledCode 
+  getStripeErrorMessageByDisabledCode,
 } from 'ts-buildkit';
 
 // Handle Stripe errors with user-friendly messages
@@ -2449,8 +2446,8 @@ Always configure the library before using cryptography features:
 import { configureZTK } from 'ts-buildkit';
 
 // In your app initialization
-configureZTK({ 
-  cryptoSecret: process.env.CRYPTO_SECRET 
+configureZTK({
+  cryptoSecret: process.env.CRYPTO_SECRET,
 });
 ```
 
@@ -2462,8 +2459,8 @@ Use the provided types and interfaces for better type safety:
 import { IGenericObject, RequestTypeEnum } from 'ts-buildkit';
 
 function makeRequest(
-  url: string, 
-  method: RequestTypeEnum, 
+  url: string,
+  method: RequestTypeEnum,
   data: IGenericObject
 ) {
   // Implementation

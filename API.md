@@ -29,7 +29,7 @@ Some features require configuration before use:
 import { configureZTK } from 'ts-buildkit';
 
 configureZTK({
-  cryptoSecret: 'your-secure-secret-key'
+  cryptoSecret: 'your-secure-secret-key',
 });
 ```
 
@@ -48,6 +48,7 @@ configureZTK({
 ### String Manipulation
 
 #### `convertToTitleCase(s: string): string`
+
 Converts camelCase string to title case.
 
 ```typescript
@@ -55,6 +56,7 @@ convertToTitleCase('helloWorld'); // 'Hello World'
 ```
 
 #### `truncateString(text: string, length?: number): string`
+
 Truncates string to specified length with ellipsis.
 
 ```typescript
@@ -62,6 +64,7 @@ truncateString('This is a long text', 10); // 'This is a...'
 ```
 
 #### `generateSlug(options: {text: string, options?: SlugOptions}): string | undefined`
+
 Generates URL-friendly slug from text.
 
 ```typescript
@@ -69,6 +72,7 @@ generateSlug({ text: 'Hello World!' }); // 'hello-world'
 ```
 
 #### `escapeRegex(str: string): string`
+
 Escapes special regex characters in string.
 
 ```typescript
@@ -76,6 +80,7 @@ escapeRegex('test.com'); // 'test\\.com'
 ```
 
 #### `getTextOnly(html: string): string`
+
 Extracts plain text from HTML string.
 
 ```typescript
@@ -85,6 +90,7 @@ getTextOnly('<p>Hello <b>World</b></p>'); // 'Hello World'
 ### Validation Functions
 
 #### `isValidEmail(email: string): boolean`
+
 Validates email address format.
 
 ```typescript
@@ -93,6 +99,7 @@ isValidEmail('invalid-email'); // false
 ```
 
 #### `isValidUrl(url: string): boolean`
+
 Validates URL format.
 
 ```typescript
@@ -101,6 +108,7 @@ isValidUrl('not-a-url'); // false
 ```
 
 #### `validatePhoneNumber(phone: string): boolean`
+
 Validates phone number format.
 
 ```typescript
@@ -109,6 +117,7 @@ validatePhoneNumber('123'); // false
 ```
 
 #### `containSpecialCharacters(text: string): boolean`
+
 Checks if text contains special characters.
 
 ```typescript
@@ -117,6 +126,7 @@ containSpecialCharacters('helloworld'); // false
 ```
 
 #### `isZNonEmptyString(value: string | undefined | null): boolean`
+
 Checks if value is a non-empty string.
 
 ```typescript
@@ -126,6 +136,7 @@ isZNonEmptyString(null); // false
 ```
 
 #### `isZValidNumber(value: number | string | undefined | null, checkPositive?: boolean): boolean`
+
 Validates if value is a valid number.
 
 ```typescript
@@ -138,6 +149,7 @@ isZValidNumber(-5, true); // false (checkPositive=true)
 ### Type Checking
 
 #### `isArray(arr: unknown, checkLength?: boolean): boolean`
+
 Checks if value is an array.
 
 ```typescript
@@ -147,6 +159,7 @@ isArray('not array'); // false
 ```
 
 #### `isObject(obj: unknown, checkKeys?: boolean): boolean`
+
 Checks if value is an object.
 
 ```typescript
@@ -156,15 +169,17 @@ isObject(null); // false
 ```
 
 #### `isFunction(fn: unknown): boolean`
+
 Checks if value is a function.
 
 ```typescript
 isFunction(() => {}); // true
-isFunction(function() {}); // true
+isFunction(function () {}); // true
 isFunction('not function'); // false
 ```
 
 #### `isNullOrUndefined(value: any): boolean`
+
 Checks if value is null or undefined.
 
 ```typescript
@@ -179,6 +194,7 @@ isNullOrUndefined(''); // false
 > **Note**: Requires `configureZTK` to be called with `cryptoSecret`.
 
 #### `encryptData(val: unknown): string | null`
+
 Encrypts data using configured secret.
 
 ```typescript
@@ -187,36 +203,34 @@ const encrypted = encryptData({ message: 'secret data' });
 ```
 
 #### `decryptData<T>(val: string): T | null`
+
 Decrypts data using configured secret.
 
 ```typescript
-const data = decryptData<{message: string}>(encrypted);
+const data = decryptData<{ message: string }>(encrypted);
 // Returns: { message: 'secret data' }
 ```
 
 #### `encryptWithSecretKey(data: unknown, secretKey: string): string`
+
 Encrypts data with custom secret key.
 
 ```typescript
-const encrypted = encryptWithSecretKey(
-  { data: 'sensitive' },
-  'custom-secret'
-);
+const encrypted = encryptWithSecretKey({ data: 'sensitive' }, 'custom-secret');
 ```
 
 #### `decryptWithSecretKey<T>(encryptedData: string, secretKey: string): T`
+
 Decrypts data with custom secret key.
 
 ```typescript
-const data = decryptWithSecretKey<{data: string}>(
-  encrypted,
-  'custom-secret'
-);
+const data = decryptWithSecretKey<{ data: string }>(encrypted, 'custom-secret');
 ```
 
 ### Date/Time Functions
 
 #### `convertToDateTimestampToStoreInDB(date: string | Date): number`
+
 Converts date to timestamp for database storage.
 
 ```typescript
@@ -225,6 +239,7 @@ const timestamp = convertToDateTimestampToStoreInDB(new Date());
 ```
 
 #### `getDateFromFrbTimestamp(timestamp: number | string): string`
+
 Converts Firebase timestamp to date string.
 
 ```typescript
@@ -233,6 +248,7 @@ const dateStr = getDateFromFrbTimestamp(1234567890123);
 ```
 
 #### `getRemainingTimeForCountDown(endTime: string | Date): RemainingTime`
+
 Calculates remaining time for countdown.
 
 ```typescript
@@ -241,6 +257,7 @@ const remaining = getRemainingTimeForCountDown('2025-12-31');
 ```
 
 #### `getTimeInUnit(value: number, unit: TimeUnitEnum): number`
+
 Converts time between units.
 
 ```typescript
@@ -251,6 +268,7 @@ getTimeInUnit(24, TimeUnitEnum.Days); // 1
 ### Array/Object Utilities
 
 #### `flattenArray<T>(arr: T[][]): T[]`
+
 Flattens nested arrays.
 
 ```typescript
@@ -258,6 +276,7 @@ flattenArray([[1, 2], [3, 4], [5]]); // [1, 2, 3, 4, 5]
 ```
 
 #### `checkEqualityOfTwoArray(arr1: any[], arr2: any[]): boolean`
+
 Checks if two arrays are equal.
 
 ```typescript
@@ -266,14 +285,16 @@ checkEqualityOfTwoArray([1, 2], [2, 1]); // false
 ```
 
 #### `isEqual(x: any, y: any): boolean`
+
 Deep equality check for any values.
 
 ```typescript
-isEqual({ a: 1, b: { c: 2 }}, { a: 1, b: { c: 2 }}); // true
+isEqual({ a: 1, b: { c: 2 } }, { a: 1, b: { c: 2 } }); // true
 isEqual([1, 2, 3], [1, 2, 3]); // true
 ```
 
 #### `checkIfKeyExists(obj: Record<string, unknown>, key: string, checkNull?: boolean): boolean`
+
 Checks if key exists in object.
 
 ```typescript
@@ -282,6 +303,7 @@ checkIfKeyExists({ name: null }, 'name', true); // false
 ```
 
 #### `getObjectKey(obj: any, key: string, defaultValue?: any, checkNull?: boolean): any`
+
 Safely gets object key with optional default.
 
 ```typescript
@@ -292,6 +314,7 @@ getObjectKey({}, 'name', 'Default'); // 'Default'
 ### URL/Web Utilities
 
 #### `addUrlProtocolHandler(url: string, isLocalhost?: boolean): string`
+
 Adds protocol to URL if missing.
 
 ```typescript
@@ -300,6 +323,7 @@ addUrlProtocolHandler('localhost:3000', true); // 'http://localhost:3000'
 ```
 
 #### `containQueryParams(url: string): boolean | ''`
+
 Checks if URL contains query parameters.
 
 ```typescript
@@ -308,13 +332,14 @@ containQueryParams('https://example.com'); // false
 ```
 
 #### `replaceUrlDynamicParts(options: UrlReplaceOptions): string`
+
 Replaces dynamic parts in URL template.
 
 ```typescript
 replaceUrlDynamicParts({
   url: '/users/:id/posts/:postId',
   itemsId: ['123', '456'],
-  urlDynamicParts: [':id', ':postId']
+  urlDynamicParts: [':id', ':postId'],
 });
 // Returns: '/users/123/posts/456'
 ```
@@ -322,6 +347,7 @@ replaceUrlDynamicParts({
 ### Image/File Utilities
 
 #### `imageUrlToBase64(url?: string, authToken?: string): Promise<string>`
+
 Converts image URL to base64 string.
 
 ```typescript
@@ -330,6 +356,7 @@ const base64 = await imageUrlToBase64('https://example.com/image.jpg');
 ```
 
 #### `getImageDimensions(src: string): Promise<{width: number, height: number}>`
+
 Gets image dimensions from URL.
 
 ```typescript
@@ -338,6 +365,7 @@ const dimensions = await getImageDimensions('image.jpg');
 ```
 
 #### `imageTypeAllowed(type: string): boolean`
+
 Checks if image MIME type is allowed.
 
 ```typescript
@@ -346,12 +374,13 @@ imageTypeAllowed('image/bmp'); // false
 ```
 
 #### `validateFileBeforeUpload(file: File, options: FileValidationOptions): ValidationResult`
+
 Validates file before upload.
 
 ```typescript
 const result = await validateFileBeforeUpload(file, {
   maxSizeInMB: 5,
-  allowedTypes: ['image/jpeg', 'image/png']
+  allowedTypes: ['image/jpeg', 'image/png'],
 });
 // Returns: { isValid: true/false, error?: string }
 ```
@@ -359,6 +388,7 @@ const result = await validateFileBeforeUpload(file, {
 ### ID/Code Generation
 
 #### `getZUniqueKey(): string`
+
 Generates unique random key.
 
 ```typescript
@@ -367,6 +397,7 @@ const key = getZUniqueKey();
 ```
 
 #### `generateUniqueCode(length?: number): string`
+
 Generates unique alphanumeric code.
 
 ```typescript
@@ -375,6 +406,7 @@ const code = generateUniqueCode(8);
 ```
 
 #### `generateUUID(): string`
+
 Generates UUID v4.
 
 ```typescript
@@ -385,6 +417,7 @@ const uuid = generateUUID();
 ### Permission/Role Functions
 
 #### `hasPermission(userPermissions: string[], requiredPermission: string): boolean`
+
 Checks if user has specific permission.
 
 ```typescript
@@ -393,17 +426,19 @@ hasPermission(['read'], 'delete'); // false
 ```
 
 #### `validateRequiredPermissions(options: RequiredPermissionsOptions): boolean`
+
 Validates if user has required permissions.
 
 ```typescript
 validateRequiredPermissions({
   userPermissions: ['read', 'write'],
   requiredPermissions: ['read'],
-  checkModeForRequiredPermissions: PermissionCheckModeEnum.every
+  checkModeForRequiredPermissions: PermissionCheckModeEnum.every,
 }); // true
 ```
 
 #### `getPermissions(role: RoleEnum): string[]`
+
 Gets permissions for a specific role.
 
 ```typescript
@@ -414,6 +449,7 @@ const permissions = getPermissions(RoleEnum.Admin);
 ### JSON Utilities
 
 #### `zStringify(_data: unknown): string`
+
 Safe JSON stringify with error handling.
 
 ```typescript
@@ -422,10 +458,11 @@ zStringify({ name: 'John', age: 30 });
 ```
 
 #### `zJsonParse<T>(_data: string): T | undefined`
+
 Safe JSON parse with error handling.
 
 ```typescript
-const data = zJsonParse<{name: string}>('{"name":"John"}');
+const data = zJsonParse<{ name: string }>('{"name":"John"}');
 // Returns: { name: 'John' }
 ```
 
@@ -439,14 +476,14 @@ enum ResponseStatusEnum {
   BadRequest = 400,
   Unauthorized = 401,
   NotFound = 404,
-  InternalServerError = 500
+  InternalServerError = 500,
 }
 
 enum ResponseCodeEnum {
   success = 'success',
   failed = 'failed',
   notFound = 'notFound',
-  alreadyExists = 'alreadyExists'
+  alreadyExists = 'alreadyExists',
 }
 ```
 
@@ -456,19 +493,19 @@ enum ResponseCodeEnum {
 enum RoleEnum {
   SuperAdmin = 'superAdmin',
   Admin = 'admin',
-  User = 'user'
+  User = 'user',
 }
 
 enum PermissionEnum {
   read = 'read',
   write = 'write',
   delete = 'delete',
-  update = 'update'
+  update = 'update',
 }
 
 enum PermissionCheckModeEnum {
   every = 'every',
-  any = 'any'
+  any = 'any',
 }
 ```
 
@@ -483,7 +520,7 @@ enum varTypesEnum {
   ARRAY = 'array',
   FUNCTION = 'function',
   NULL = 'null',
-  UNDEFINED = 'undefined'
+  UNDEFINED = 'undefined',
 }
 ```
 
@@ -497,7 +534,7 @@ enum TimeUnitEnum {
   Hours = 'hours',
   Minutes = 'minutes',
   Seconds = 'seconds',
-  Milliseconds = 'milliseconds'
+  Milliseconds = 'milliseconds',
 }
 ```
 
@@ -507,7 +544,7 @@ enum TimeUnitEnum {
 enum PlatformTypeEnum {
   web = 'web',
   android = 'android',
-  ios = 'ios'
+  ios = 'ios',
 }
 ```
 
@@ -552,8 +589,10 @@ interface IHasRequiredPermissions {
 ```typescript
 type DBItemGenericDataType = IGenericObject & IDefaultDBColumns;
 
-type FormItemGenericDataType = Omit<DBItemGenericDataType, 
-  'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>;
+type FormItemGenericDataType = Omit<
+  DBItemGenericDataType,
+  'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+>;
 ```
 
 ## Constants
@@ -564,12 +603,12 @@ type FormItemGenericDataType = Omit<DBItemGenericDataType,
 const apiConstants = {
   headerKeys: {
     authorization: 'authorization',
-    contentType: 'content-type'
+    contentType: 'content-type',
   },
   contentTypes: {
     json: 'application/json',
-    formData: 'multipart/form-data'
-  }
+    formData: 'multipart/form-data',
+  },
 };
 ```
 
@@ -581,7 +620,7 @@ const dateFormat = {
   withTime: 'YYYY-MM-DD HH:mm:ss',
   display: 'MMM DD, YYYY',
   time: 'HH:mm',
-  full: 'MMMM DD, YYYY HH:mm:ss'
+  full: 'MMMM DD, YYYY HH:mm:ss',
 };
 ```
 
@@ -592,13 +631,13 @@ const fieldsValidation = {
   generic: {
     title: { min: { val: 1 }, max: { val: 100 } },
     description: { min: { val: 1 }, max: { val: 500 } },
-    shortDescription: { min: { val: 1 }, max: { val: 200 } }
+    shortDescription: { min: { val: 1 }, max: { val: 200 } },
   },
   user: {
     name: { min: { val: 2 }, max: { val: 50 } },
     email: { min: { val: 5 }, max: { val: 100 } },
-    password: { min: { val: 8 }, max: { val: 100 } }
-  }
+    password: { min: { val: 8 }, max: { val: 100 } },
+  },
 };
 ```
 
@@ -607,10 +646,10 @@ const fieldsValidation = {
 ```typescript
 const allowedImageTypes = [
   'image/jpeg',
-  'image/jpg', 
+  'image/jpg',
   'image/png',
   'image/gif',
-  'image/webp'
+  'image/webp',
 ];
 ```
 
@@ -620,10 +659,10 @@ const allowedImageTypes = [
 
 ```typescript
 // Immutable array move
-function arrayMoveImmutable<T>(array: T[], from: number, to: number): T[]
+function arrayMoveImmutable<T>(array: T[], from: number, to: number): T[];
 
 // Mutable array move (modifies original)
-function arrayMoveMutable<T>(array: T[], from: number, to: number): void
+function arrayMoveMutable<T>(array: T[], from: number, to: number): void;
 ```
 
 ### Class Name Utilities
@@ -648,7 +687,7 @@ classNamesDedupe('foo foo bar baz bar');
 // Generate coupon code
 const coupon = generateCouponCode({
   parts: 3,
-  partLen: 4
+  partLen: 4,
 });
 // Returns: 'ABCD-EFGH-IJKL'
 
@@ -669,21 +708,21 @@ Import from `ts-buildkit/play-and-win`:
 enum GameTypeEnum {
   Quiz = 'quiz',
   Puzzle = 'puzzle',
-  Trivia = 'trivia'
+  Trivia = 'trivia',
 }
 
 enum GameRoomStatusEnum {
   Waiting = 'waiting',
   InProgress = 'inProgress',
   Completed = 'completed',
-  Cancelled = 'cancelled'
+  Cancelled = 'cancelled',
 }
 
 enum TransactionTypeEnum {
   Deposit = 'deposit',
   Withdrawal = 'withdrawal',
   Transfer = 'transfer',
-  Reward = 'reward'
+  Reward = 'reward',
 }
 ```
 
@@ -740,13 +779,13 @@ interface ITransaction {
 const playAndWinFieldsValidation = {
   username: { min: { val: 3 }, max: { val: 20 } },
   roomCode: { min: { val: 6 }, max: { val: 6 } },
-  withdrawAmount: { min: { val: 10 }, max: { val: 10000 } }
+  withdrawAmount: { min: { val: 10 }, max: { val: 10000 } },
 };
 
 const appServiceFee = {
   percentage: 5, // 5% service fee
-  minimum: 1,    // Minimum $1 fee
-  maximum: 100   // Maximum $100 fee
+  minimum: 1, // Minimum $1 fee
+  maximum: 100, // Maximum $100 fee
 };
 ```
 
@@ -761,7 +800,7 @@ enum GenderEnum {
   Male = 'male',
   Female = 'female',
   Other = 'other',
-  PreferNotToSay = 'preferNotToSay'
+  PreferNotToSay = 'preferNotToSay',
 }
 
 enum OccupationEnum {
@@ -770,27 +809,27 @@ enum OccupationEnum {
   Freelancer = 'freelancer',
   Business = 'business',
   Retired = 'retired',
-  Other = 'other'
+  Other = 'other',
 }
 
 enum CleanlinessEnum {
   VeryClean = 'veryClean',
   Clean = 'clean',
   Average = 'average',
-  Messy = 'messy'
+  Messy = 'messy',
 }
 
 enum SmokeEnum {
   NonSmoker = 'nonSmoker',
   Smoker = 'smoker',
-  OccasionalSmoker = 'occasionalSmoker'
+  OccasionalSmoker = 'occasionalSmoker',
 }
 
 enum PetsEnum {
   NoPets = 'noPets',
   HasPets = 'hasPets',
   PetFriendly = 'petFriendly',
-  NotPetFriendly = 'notPetFriendly'
+  NotPetFriendly = 'notPetFriendly',
 }
 ```
 
@@ -859,9 +898,18 @@ interface IRoommatePreference {
 
 ```typescript
 const constellationsVal = [
-  'aries', 'taurus', 'gemini', 'cancer',
-  'leo', 'virgo', 'libra', 'scorpio',
-  'sagittarius', 'capricorn', 'aquarius', 'pisces'
+  'aries',
+  'taurus',
+  'gemini',
+  'cancer',
+  'leo',
+  'virgo',
+  'libra',
+  'scorpio',
+  'sagittarius',
+  'capricorn',
+  'aquarius',
+  'pisces',
 ];
 ```
 
@@ -876,7 +924,7 @@ import { z } from 'ts-buildkit/require-package/zod';
 // Use Zod normally
 const schema = z.object({
   name: z.string(),
-  age: z.number()
+  age: z.number(),
 });
 ```
 
@@ -919,11 +967,13 @@ if (!parsed) {
 ## Best Practices
 
 1. **Always configure before using crypto functions**:
+
    ```typescript
    configureZTK({ cryptoSecret: 'your-secret' });
    ```
 
 2. **Use type guards for runtime type checking**:
+
    ```typescript
    if (isArray(data) && isObject(data[0])) {
      // Safe to use as array of objects
@@ -931,21 +981,25 @@ if (!parsed) {
    ```
 
 3. **Prefer specific validation functions**:
+
    ```typescript
    // Good
    isValidEmail(email);
-   
+
    // Less specific
    containSpecialCharacters(email);
    ```
 
 4. **Use enums for type safety**:
+
    ```typescript
    // Good
-   if (status === ResponseStatusEnum.OK) { }
-   
+   if (status === ResponseStatusEnum.OK) {
+   }
+
    // Avoid
-   if (status === 200) { }
+   if (status === 200) {
+   }
    ```
 
 5. **Handle optional peer dependencies**:

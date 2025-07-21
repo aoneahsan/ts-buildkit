@@ -16,20 +16,20 @@ Before creating bug reports, please check [this list](#before-submitting-a-bug-r
 
 #### Before Submitting A Bug Report
 
-* **Check the documentation** for a list of common questions and problems.
-* **Perform a [cursory search](https://github.com/aoneahsan/ts-buildkit/issues)** to see if the problem has already been reported. If it has **and the issue is still open**, add a comment to the existing issue instead of opening a new one.
+- **Check the documentation** for a list of common questions and problems.
+- **Perform a [cursory search](https://github.com/aoneahsan/ts-buildkit/issues)** to see if the problem has already been reported. If it has **and the issue is still open**, add a comment to the existing issue instead of opening a new one.
 
 #### How Do I Submit A (Good) Bug Report?
 
 Bugs are tracked as [GitHub issues](https://github.com/aoneahsan/ts-buildkit/issues). Create an issue and provide the following information:
 
-* **Use a clear and descriptive title** for the issue to identify the problem.
-* **Describe the exact steps which reproduce the problem** in as many details as possible.
-* **Provide specific examples to demonstrate the steps**. Include links to files or GitHub projects, or copy/pasteable snippets, which you use in those examples.
-* **Describe the behavior you observed after following the steps** and point out what exactly is the problem with that behavior.
-* **Explain which behavior you expected to see instead and why.**
-* **Include screenshots and animated GIFs** which show you following the described steps and clearly demonstrate the problem.
-* **If the problem wasn't triggered by a specific action**, describe what you were doing before the problem happened.
+- **Use a clear and descriptive title** for the issue to identify the problem.
+- **Describe the exact steps which reproduce the problem** in as many details as possible.
+- **Provide specific examples to demonstrate the steps**. Include links to files or GitHub projects, or copy/pasteable snippets, which you use in those examples.
+- **Describe the behavior you observed after following the steps** and point out what exactly is the problem with that behavior.
+- **Explain which behavior you expected to see instead and why.**
+- **Include screenshots and animated GIFs** which show you following the described steps and clearly demonstrate the problem.
+- **If the problem wasn't triggered by a specific action**, describe what you were doing before the problem happened.
 
 ### Suggesting Enhancements
 
@@ -37,25 +37,25 @@ This section guides you through submitting an enhancement suggestion for ts-buil
 
 #### Before Submitting An Enhancement Suggestion
 
-* **Check the documentation** to see if the enhancement is already available.
-* **Perform a [cursory search](https://github.com/aoneahsan/ts-buildkit/issues)** to see if the enhancement has already been suggested.
+- **Check the documentation** to see if the enhancement is already available.
+- **Perform a [cursory search](https://github.com/aoneahsan/ts-buildkit/issues)** to see if the enhancement has already been suggested.
 
 #### How Do I Submit A (Good) Enhancement Suggestion?
 
 Enhancement suggestions are tracked as [GitHub issues](https://github.com/aoneahsan/ts-buildkit/issues). Create an issue and provide the following information:
 
-* **Use a clear and descriptive title** for the issue to identify the suggestion.
-* **Provide a step-by-step description of the suggested enhancement** in as many details as possible.
-* **Provide specific examples to demonstrate the steps**.
-* **Describe the current behavior** and **explain which behavior you expected to see instead** and why.
-* **Explain why this enhancement would be useful** to most ts-buildkit users.
+- **Use a clear and descriptive title** for the issue to identify the suggestion.
+- **Provide a step-by-step description of the suggested enhancement** in as many details as possible.
+- **Provide specific examples to demonstrate the steps**.
+- **Describe the current behavior** and **explain which behavior you expected to see instead** and why.
+- **Explain why this enhancement would be useful** to most ts-buildkit users.
 
 ### Your First Code Contribution
 
 Unsure where to begin contributing to ts-buildkit? You can start by looking through these `beginner` and `help-wanted` issues:
 
-* [Beginner issues](https://github.com/aoneahsan/ts-buildkit/labels/beginner) - issues which should only require a few lines of code, and a test or two.
-* [Help wanted issues](https://github.com/aoneahsan/ts-buildkit/labels/help%20wanted) - issues which should be a bit more involved than `beginner` issues.
+- [Beginner issues](https://github.com/aoneahsan/ts-buildkit/labels/beginner) - issues which should only require a few lines of code, and a test or two.
+- [Help wanted issues](https://github.com/aoneahsan/ts-buildkit/labels/help%20wanted) - issues which should be a bit more involved than `beginner` issues.
 
 ### Pull Requests
 
@@ -84,12 +84,14 @@ Please follow these steps to have your contribution considered by the maintainer
 
 1. Fork the repository
 2. Clone your fork:
+
    ```bash
    git clone https://github.com/your-username/ts-buildkit.git
    cd ts-buildkit
    ```
 
 3. Install dependencies:
+
    ```bash
    yarn install
    ```
@@ -103,17 +105,20 @@ Please follow these steps to have your contribution considered by the maintainer
 
 1. Make your changes
 2. Run tests:
+
    ```bash
    yarn test:vitest
    yarn test
    ```
 
 3. Format your code:
+
    ```bash
    yarn prettier
    ```
 
 4. Build the project:
+
    ```bash
    yarn build
    ```
@@ -125,51 +130,51 @@ Please follow these steps to have your contribution considered by the maintainer
 
 ### Git Commit Messages
 
-* Use the present tense ("Add feature" not "Added feature")
-* Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
-* Limit the first line to 72 characters or less
-* Reference issues and pull requests liberally after the first line
-* Consider starting the commit message with an applicable emoji:
-    * 🎨 `:art:` when improving the format/structure of the code
-    * 🐎 `:racehorse:` when improving performance
-    * 🚱 `:non-potable_water:` when plugging memory leaks
-    * 📝 `:memo:` when writing docs
-    * 🐛 `:bug:` when fixing a bug
-    * 🔥 `:fire:` when removing code or files
-    * 💚 `:green_heart:` when fixing the CI build
-    * ✅ `:white_check_mark:` when adding tests
-    * 🔒 `:lock:` when dealing with security
-    * ⬆️ `:arrow_up:` when upgrading dependencies
-    * ⬇️ `:arrow_down:` when downgrading dependencies
+- Use the present tense ("Add feature" not "Added feature")
+- Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
+- Limit the first line to 72 characters or less
+- Reference issues and pull requests liberally after the first line
+- Consider starting the commit message with an applicable emoji:
+  - 🎨 `:art:` when improving the format/structure of the code
+  - 🐎 `:racehorse:` when improving performance
+  - 🚱 `:non-potable_water:` when plugging memory leaks
+  - 📝 `:memo:` when writing docs
+  - 🐛 `:bug:` when fixing a bug
+  - 🔥 `:fire:` when removing code or files
+  - 💚 `:green_heart:` when fixing the CI build
+  - ✅ `:white_check_mark:` when adding tests
+  - 🔒 `:lock:` when dealing with security
+  - ⬆️ `:arrow_up:` when upgrading dependencies
+  - ⬇️ `:arrow_down:` when downgrading dependencies
 
 ### TypeScript Styleguide
 
-* Use TypeScript for all new code
-* Enable strict mode
-* All exported functions must have explicit return types
-* Use `import type` for type-only imports
-* Follow the existing code style
-* Use meaningful variable and function names
-* Add JSDoc comments for all public APIs
+- Use TypeScript for all new code
+- Enable strict mode
+- All exported functions must have explicit return types
+- Use `import type` for type-only imports
+- Follow the existing code style
+- Use meaningful variable and function names
+- Add JSDoc comments for all public APIs
 
 ### Code Style
 
-* Use 2 spaces for indentation
-* Use semicolons
-* Use single quotes for strings
-* Place opening braces on the same line
-* Use async/await instead of promises when possible
-* Prefer const over let, never use var
-* Use template literals for string concatenation
-* Use optional chaining and nullish coalescing
+- Use 2 spaces for indentation
+- Use semicolons
+- Use single quotes for strings
+- Place opening braces on the same line
+- Use async/await instead of promises when possible
+- Prefer const over let, never use var
+- Use template literals for string concatenation
+- Use optional chaining and nullish coalescing
 
 ### Testing
 
-* Write tests for all new functionality
-* Ensure all tests pass before submitting PR
-* Aim for high test coverage
-* Use descriptive test names
-* Group related tests using describe blocks
+- Write tests for all new functionality
+- Ensure all tests pass before submitting PR
+- Aim for high test coverage
+- Use descriptive test names
+- Group related tests using describe blocks
 
 ## Project Structure
 

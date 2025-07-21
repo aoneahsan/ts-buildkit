@@ -19,3 +19,17 @@ export type {
   IUseHasRequiredPermissionsReturn,
   UseHasRequiredPermissionCheckPermissionType,
 } from './permissions';
+export type {
+  IValidateFileOptions,
+  IFileTypeOptions,
+  ITruncateStringOptions,
+  ITitleCaseOptions,
+  IGenerateCodeOptions,
+  ICurrencyFormatOptions,
+  ICountdownOptions,
+  IDateFormatOptions,
+  IValidationOptions,
+  IRegexMatchOptions,
+  IImageDimensionOptions,
+  IZTKGlobalConfig,
+} from './utilityOptions';

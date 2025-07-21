@@ -12,7 +12,7 @@ import { InAppNotificationSendToEnum } from 'src/play-and-win';
  */
 export const requestStatusVal: readonly [
   RequestStatusEnum.approved,
-  RequestStatusEnum.rejected
+  RequestStatusEnum.rejected,
 ] = [RequestStatusEnum.approved, RequestStatusEnum.rejected] as const;
 
 /**
@@ -20,7 +20,7 @@ export const requestStatusVal: readonly [
  */
 export const transferMethodVal: readonly [
   TransferMethodEnum.easypaisa,
-  TransferMethodEnum.jazzcash
+  TransferMethodEnum.jazzcash,
 ] = [TransferMethodEnum.easypaisa, TransferMethodEnum.jazzcash] as const;
 
 /**
@@ -28,7 +28,7 @@ export const transferMethodVal: readonly [
  */
 export const selectorEnumVal: readonly [
   QueryKeyTypeEnum.id,
-  QueryKeyTypeEnum.roomCode
+  QueryKeyTypeEnum.roomCode,
 ] = [QueryKeyTypeEnum.id, QueryKeyTypeEnum.roomCode] as const;
 
 /**
@@ -40,7 +40,7 @@ export const inAppNotificationsSendToEnumVal: readonly [
   InAppNotificationSendToEnum.allEngagers,
   InAppNotificationSendToEnum.allPlayers,
   InAppNotificationSendToEnum.allEngagersAndPlayers,
-  InAppNotificationSendToEnum.specificUsers
+  InAppNotificationSendToEnum.specificUsers,
 ] = [
   InAppNotificationSendToEnum.allUsers,
   InAppNotificationSendToEnum.allAdmins,
@@ -61,7 +61,7 @@ export const userRoleEnumVal: readonly [
   _UserRoleEnum.creator,
   _UserRoleEnum.reviewer,
   _UserRoleEnum.player,
-  _UserRoleEnum.engager
+  _UserRoleEnum.engager,
 ] = [
   _UserRoleEnum.superAdmin,
   _UserRoleEnum.admin,

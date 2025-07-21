@@ -23,18 +23,19 @@ import { configureZTK } from 'ts-buildkit';
 
 // DO: Use environment variables
 configureZTK({
-  cryptoSecret: process.env.CRYPTO_SECRET
+  cryptoSecret: process.env.CRYPTO_SECRET,
 });
 
 // DON'T: Hardcode secrets
 configureZTK({
-  cryptoSecret: 'my-secret-key' // Never do this in production
+  cryptoSecret: 'my-secret-key', // Never do this in production
 });
 ```
 
 ### 2. Secret Key Requirements
 
 Your crypto secret should:
+
 - Be at least 32 characters long
 - Be randomly generated
 - Be stored securely (environment variables, secret management service)
@@ -44,6 +45,7 @@ Your crypto secret should:
 ### 3. Environment Variables
 
 Example `.env` file (add to `.gitignore`):
+
 ```
 CRYPTO_SECRET=your-very-long-and-random-secret-key-here
 ```
@@ -51,6 +53,7 @@ CRYPTO_SECRET=your-very-long-and-random-secret-key-here
 ### 4. Secure Random Generation
 
 For generating secure tokens or IDs in your application:
+
 ```typescript
 // Use crypto module for secure random values
 import { randomBytes } from 'crypto';
@@ -61,8 +64,13 @@ const secureToken = randomBytes(32).toString('hex');
 ### 5. Input Validation
 
 Always validate user input before processing:
+
 ```typescript
-import { isValidEmail, validatePhoneNumber, containSpecialCharacters } from 'ts-buildkit';
+import {
+  isValidEmail,
+  validatePhoneNumber,
+  containSpecialCharacters,
+} from 'ts-buildkit';
 
 // Validate email
 if (!isValidEmail(userInput.email)) {
@@ -78,6 +86,7 @@ if (containSpecialCharacters(userInput.username)) {
 ### 6. XSS Prevention
 
 When working with HTML content:
+
 ```typescript
 import { getTextOnly } from 'ts-buildkit';
 
@@ -88,13 +97,14 @@ const safeText = getTextOnly(untrustedHtml);
 ### 7. Data Encryption
 
 For sensitive data:
+
 ```typescript
 import { encryptData, decryptData } from 'ts-buildkit';
 
 // Encrypt sensitive data before storage
-const encrypted = encryptData({ 
+const encrypted = encryptData({
   creditCard: '1234-5678-9012-3456',
-  cvv: '123'
+  cvv: '123',
 });
 
 // Decrypt when needed
@@ -106,6 +116,7 @@ const decrypted = decryptData(encrypted);
 ### Known Limitations
 
 1. **Random Generation**: Some utility functions use `Math.random()` for non-security purposes. Do not use these for generating secrets or tokens:
+
    - `generateUniqueCode()`
    - `generateUUID()`
    - `getZUniqueKey()`
@@ -118,11 +129,13 @@ const decrypted = decryptData(encrypted);
 ### Dependencies
 
 This library has optional peer dependencies. Ensure they are kept up to date:
+
 - `crypto-js`: Used for encryption/decryption
 - `dayjs`: Used for date manipulation
 - `zod`: Used for schema validation
 
 Run security audits regularly:
+
 ```bash
 yarn audit
 ```
@@ -145,6 +158,7 @@ Before deploying applications using ts-buildkit:
 ## Contact
 
 For security concerns, contact:
+
 - Email: [aoneahsan@gmail.com](mailto:aoneahsan@gmail.com)
 - Website: [https://aoneahsan.com](https://aoneahsan.com)
 

@@ -11,6 +11,16 @@ import {
   IGenericObject,
   IPaginationOptions,
 } from '../../../types/genericTypes';
+import {
+  IValidateFileOptions,
+  IFileTypeOptions,
+  ITruncateStringOptions,
+  ITitleCaseOptions,
+  IGenerateCodeOptions,
+  ICurrencyFormatOptions,
+  ICountdownOptions,
+  IImageDimensionOptions,
+} from '../../../types/utilityOptions';
 
 /**
  * Generates a unique random key.
@@ -830,6 +840,7 @@ export const checkEqualityOfTwoArray = (
  * @param {File} file - The file to check.
  * @param {string} type - The type of file to check.
  * @returns {boolean} - Returns `true` if the file type is allowed; otherwise, `false`.
+ * @deprecated Use isFileTypeAllowedV2 with options parameter instead
  */
 export const isFileTypeAllowed = (file: File, type = 'svg'): boolean => {
   if (type === 'svg') {
@@ -838,6 +849,45 @@ export const isFileTypeAllowed = (file: File, type = 'svg'): boolean => {
     return allowedImageTypes?.includes(file?.type?.toLowerCase());
   }
   return false;
+};
+
+/**
+ * Checks if a file type is allowed with configurable options.
+ * @param {File} file - The file to check.
+ * @param {IFileTypeOptions} options - Configuration options.
+ * @returns {boolean} - Returns `true` if the file type is allowed; otherwise, `false`.
+ */
+export const isFileTypeAllowedV2 = (
+  file: File,
+  options?: IFileTypeOptions
+): boolean => {
+  if (!file || !file.type) return false;
+
+  const defaultOptions: IFileTypeOptions = {
+    allowedTypes: allowedImageTypes,
+    caseInsensitive: true,
+    allowWildcard: false,
+  };
+
+  const config = { ...defaultOptions, ...options };
+  const fileType = config.caseInsensitive
+    ? file.type.toLowerCase()
+    : file.type;
+
+  // Check if file type is in allowed types
+  return config.allowedTypes?.some((allowedType) => {
+    const compareType = config.caseInsensitive
+      ? allowedType.toLowerCase()
+      : allowedType;
+
+    if (config.allowWildcard && compareType.includes('*')) {
+      // Handle wildcard matching (e.g., 'image/*')
+      const [prefix] = compareType.split('*');
+      return fileType.startsWith(prefix);
+    }
+
+    return fileType === compareType;
+  }) || false;
 };
 
 /**
@@ -939,9 +989,26 @@ export const isFunction = (val: unknown): boolean => {
  * Checks if an image type is allowed.
  * @param {File} file - The file to check.
  * @returns {boolean} - Returns `true` if the image type is allowed; otherwise, `false`.
+ * @deprecated Use imageTypeAllowedV2 with options parameter instead
  */
 export const imageTypeAllowed = (file: any): boolean => {
   return allowedImageTypes?.includes(file?.type?.toLowerCase());
+};
+
+/**
+ * Checks if an image type is allowed with configurable options.
+ * @param {File} file - The file to check.
+ * @param {IFileTypeOptions} options - Configuration options.
+ * @returns {boolean} - Returns `true` if the image type is allowed; otherwise, `false`.
+ */
+export const imageTypeAllowedV2 = (
+  file: File,
+  options?: IFileTypeOptions
+): boolean => {
+  return isFileTypeAllowedV2(file, {
+    allowedTypes: allowedImageTypes,
+    ...options,
+  });
 };
 
 /**
@@ -970,6 +1037,73 @@ export const validateFileBeforeUpload = ({
   if (!allowed) return { status: 'error', type: 'INVALID_FILE_TYPE' } as const;
 
   return { status: 'success', type: 'SUCCESS' } as const;
+};
+
+/**
+ * Validates a file before upload with configurable options.
+ * @param {File} file - The file to validate.
+ * @param {IValidateFileOptions} options - Configuration options.
+ * @returns {Object} The validation result.
+ */
+export const validateFileBeforeUploadV2 = (
+  file: File,
+  options?: IValidateFileOptions
+): {
+  status: 'success' | 'error';
+  type: 'SUCCESS' | 'FILE_SIZE_LIMIT' | 'INVALID_FILE_TYPE' | 'CUSTOM_ERROR';
+  message?: string;
+} => {
+  const defaultOptions: IValidateFileOptions = {
+    maxSize: 5, // 5MB default
+    allowedTypes: allowedImageTypes,
+    errorMessages: {
+      fileSize: 'File size exceeds the maximum allowed size',
+      fileType: 'File type is not allowed',
+      custom: 'File validation failed',
+    },
+  };
+
+  const config = { ...defaultOptions, ...options };
+  const errorMessages = { ...defaultOptions.errorMessages, ...options?.errorMessages };
+
+  // Check file size
+  const fileSizeInMB = file.size / 1024 / 1024;
+  if (config.maxSize && fileSizeInMB > config.maxSize) {
+    return {
+      status: 'error',
+      type: 'FILE_SIZE_LIMIT',
+      message: errorMessages.fileSize,
+    };
+  }
+
+  // Check file type
+  const isTypeAllowed = isFileTypeAllowedV2(file, {
+    allowedTypes: config.allowedTypes,
+    caseInsensitive: true,
+    allowWildcard: true,
+  });
+
+  if (!isTypeAllowed) {
+    return {
+      status: 'error',
+      type: 'INVALID_FILE_TYPE',
+      message: errorMessages.fileType,
+    };
+  }
+
+  // Run custom validator if provided
+  if (config.customValidator) {
+    const customResult = config.customValidator(file);
+    if (customResult !== true) {
+      return {
+        status: 'error',
+        type: 'CUSTOM_ERROR',
+        message: typeof customResult === 'string' ? customResult : errorMessages.custom,
+      };
+    }
+  }
+
+  return { status: 'success', type: 'SUCCESS' };
 };
 
 /**

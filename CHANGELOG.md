@@ -14,6 +14,7 @@ This is the initial release of ts-buildkit (formerly zaions-tool-kit and ts-tool
 ### Added
 
 #### Core Features
+
 - 🔒 **Cryptography Module**: AES encryption/decryption with configurable secrets
 - 🧩 **Type System**: Extensive TypeScript type definitions, enums, and interfaces
 - 🛠️ **Utility Functions**: 100+ helper functions for common development tasks
@@ -23,6 +24,7 @@ This is the initial release of ts-buildkit (formerly zaions-tool-kit and ts-tool
 - 🌐 **Cross-Platform**: Works in both Node.js (>=22.2.0) and browser environments
 
 #### Utility Categories
+
 - **String Manipulation**: Title case conversion, slug generation, truncation, HTML text extraction
 - **Validation**: Email, URL, phone number, special characters, form validation
 - **Type Guards**: Runtime type checking for arrays, objects, functions, null/undefined
@@ -36,12 +38,14 @@ This is the initial release of ts-buildkit (formerly zaions-tool-kit and ts-tool
 - **JSON**: Safe stringify/parse with error handling
 
 #### Modules
+
 - **Main Module** (`ts-buildkit`): Core utilities and functions
 - **Gaming Module** (`ts-buildkit/play-and-win`): Game types, room management, transactions
 - **Roommate Module** (`ts-buildkit/roommate`): Roommate preferences, lifestyle matching
 - **Optional Dependencies**: Wrapped peer dependencies for Zod, Day.js, and Crypto-js
 
 #### Infrastructure
+
 - Full TypeScript support with strict mode
 - ESM and CommonJS builds
 - Minified production builds
@@ -49,12 +53,14 @@ This is the initial release of ts-buildkit (formerly zaions-tool-kit and ts-tool
 - Comprehensive JSDoc comments
 
 ### Changed
+
 - **Package Name**: Renamed from `zaions-tool-kit`/`ts-tool-kit` to `ts-buildkit`
 - **Author**: Updated from "Zaions Dev Team" to "Ahsan Mahmood"
 - **Repository**: Moved from `https://github.com/zaions/tool-kit` to `https://github.com/aoneahsan/ts-buildkit`
 - **License**: Changed from MIT to ISC
 
 ### Technical Details
+
 - **Node.js**: Requires >= 22.2.0
 - **TypeScript**: 5.8.3
 - **Build Tool**: tsup 8.5.0
@@ -62,6 +68,7 @@ This is the initial release of ts-buildkit (formerly zaions-tool-kit and ts-tool
 - **Package Manager**: Yarn 1.22.22
 
 ### Peer Dependencies
+
 - `crypto-js`: ^4.2.0 (optional)
 - `dayjs`: ^1.11.13 (optional)
 - `zod`: ^4.0.5 (optional)
@@ -73,17 +80,19 @@ This is the initial release of ts-buildkit (formerly zaions-tool-kit and ts-tool
 ### From zaions-tool-kit or ts-tool-kit
 
 1. Update package.json:
+
    ```bash
    npm uninstall zaions-tool-kit ts-tool-kit
    npm install ts-buildkit
    ```
 
 2. Update imports:
+
    ```typescript
    // Old
    import { utility } from 'zaions-tool-kit';
    import { utility } from 'ts-tool-kit';
-   
+
    // New
    import { utility } from 'ts-buildkit';
    ```

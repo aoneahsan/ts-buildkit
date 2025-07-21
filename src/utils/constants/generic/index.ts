@@ -132,4 +132,10 @@ export const svgIconTypes: string[] = ['image/svg', 'image/svg+xml'];
 /**
  * Constants for allowed image types.
  */
-export const allowedImageTypes = 'image/png, image/jpeg, image/gif';
+export const allowedImageTypes = ['image/png', 'image/jpeg', 'image/gif'];
+
+/**
+ * Default allowed image types as a string (for backward compatibility).
+ * @deprecated Use allowedImageTypes array instead
+ */
+export const allowedImageTypesString = 'image/png, image/jpeg, image/gif';

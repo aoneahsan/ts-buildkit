@@ -79,7 +79,7 @@ Please try these steps first:
 import { configureZTK } from 'ts-buildkit';
 
 configureZTK({
-  cryptoSecret: process.env.CRYPTO_SECRET
+  cryptoSecret: process.env.CRYPTO_SECRET,
 });
 ```
 
@@ -94,11 +94,13 @@ Yes! ts-buildkit works in both Node.js and browser environments.
 ### Q: How do I use optional peer dependencies?
 
 Install them separately:
+
 ```bash
 npm install crypto-js dayjs zod
 ```
 
 Then import from the require-package path:
+
 ```typescript
 import dayjs from 'ts-buildkit/require-package/dayjs';
 ```
