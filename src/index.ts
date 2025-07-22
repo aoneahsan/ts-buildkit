@@ -33,7 +33,8 @@ export {
   varTypesEnum,
 } from './enums/index';
 
-export { getCryptoSecret, setCryptoSecret } from './privateModule/index';
+// Note: getCryptoSecret and setCryptoSecret are intentionally not exported for security reasons
+// They should only be used internally by the library
 
 export type {
   DBItemGenericDataType,
@@ -49,6 +50,19 @@ export type {
   IUseHasRequiredPermissionsReturn,
   PlatformData,
   UseHasRequiredPermissionCheckPermissionType,
+  // Utility option interfaces
+  IValidateFileOptions,
+  IFileTypeOptions,
+  ITruncateStringOptions,
+  ITitleCaseOptions,
+  IGenerateCodeOptions,
+  ICurrencyFormatOptions,
+  ICountdownOptions,
+  IDateFormatOptions,
+  IValidationOptions,
+  IRegexMatchOptions,
+  IImageDimensionOptions,
+  IZTKGlobalConfig,
 } from './types/index';
 
 export {
@@ -77,6 +91,7 @@ export {
   defaultValue,
   detectDeviceAndViewMode,
   dumpValueNoLogNothing,
+  isBrowser,
   emptyVoidReturnFunction,
   emptyVoidReturnFunctionPromise,
   encryptData,
@@ -87,9 +102,11 @@ export {
   formatCamelCaseToTitle,
   formatStripeAmount,
   formatUSD,
+  formatUSDV2,
   frbCollectionQueryDefaults,
   generateSlug,
   generateUniqueCode,
+  generateUniqueCodeV2,
   generateUUID,
   getActiveFilters,
   getDateFromFrbTimestamp,
@@ -116,6 +133,7 @@ export {
   isArray,
   isEqual,
   isFileTypeAllowed,
+  isFileTypeAllowedV2,
   isFileTypeValid,
   isFunction,
   isNotNullOrUndefined,
@@ -142,11 +160,13 @@ export {
   timeUnitType,
   toRad,
   truncateString,
+  truncateStringV2,
   urlParams,
   urlTarget,
   validateEmail,
   validateExcludedPermissions,
   validateFileBeforeUpload,
+  validateFileBeforeUploadV2,
   validateInputCharacters,
   validatePhoneNumber,
   validateRequiredPermissions,

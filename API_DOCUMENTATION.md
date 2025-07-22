@@ -2517,6 +2517,163 @@ The library is designed to work in both Node.js and browser environments. Some u
 - Cryptography features require the crypto-js peer dependency
 - Date operations require the dayjs peer dependency
 
+## V2 Functions with Enhanced Options
+
+The following V2 functions provide enhanced configurability with options objects:
+
+### formatUSDV2
+
+Formats a number as currency with extensive customization options.
+
+```typescript
+import { formatUSDV2, ICurrencyFormatOptions } from 'ts-buildkit';
+
+// Basic usage
+formatUSDV2(12345); // '$123.45'
+
+// With options
+const options: ICurrencyFormatOptions = {
+  currency: 'EUR',
+  symbol: '€',
+  divideBy: 100,
+  decimalPlaces: 2,
+  thousandsSeparator: '.',
+  decimalSeparator: ',',
+  symbolPosition: 'after',
+  includeSpace: true,
+};
+
+formatUSDV2(12345, options); // '123,45 €'
+```
+
+### truncateStringV2
+
+Truncates strings with advanced options for position and word preservation.
+
+```typescript
+import { truncateStringV2, ITruncateStringOptions } from 'ts-buildkit';
+
+// Basic usage
+truncateStringV2('Long text here', { length: 10 }); // 'Long te...'
+
+// Middle truncation
+truncateStringV2('Very long filename.txt', {
+  length: 15,
+  position: 'middle',
+  ellipsis: '...',
+}); // 'Very l...e.txt'
+
+// Preserve words
+truncateStringV2('Hello world this is a test', {
+  length: 15,
+  preserveWords: true,
+}); // 'Hello world...'
+```
+
+### generateUniqueCodeV2
+
+Generates unique codes with extensive customization options.
+
+```typescript
+import { generateUniqueCodeV2, IGenerateCodeOptions } from 'ts-buildkit';
+
+// Basic usage
+generateUniqueCodeV2(); // 'a3b7c2'
+
+// Custom options
+generateUniqueCodeV2({
+  length: 12,
+  charset: 'numeric',
+  segments: 3,
+  segmentSeparator: '-',
+}); // '1234-5678-9012'
+
+// Complex example
+generateUniqueCodeV2({
+  length: 16,
+  charset: 'alphanumeric',
+  uppercase: true,
+  excludeAmbiguous: true,
+  prefix: 'ID-',
+  suffix: '-2024',
+  segments: 4,
+  segmentSeparator: '-',
+}); // 'ID-A3B7-C2D9-E4F6-G8H2-2024'
+```
+
+### isFileTypeAllowedV2
+
+Validates file types with advanced options including wildcard support.
+
+```typescript
+import { isFileTypeAllowedV2, IFileTypeOptions } from 'ts-buildkit';
+
+const file = new File(['content'], 'test.jpg', { type: 'image/jpeg' });
+
+// Basic usage
+isFileTypeAllowedV2(file); // true (uses default image types)
+
+// Custom allowed types
+isFileTypeAllowedV2(file, {
+  allowedTypes: ['image/jpeg', 'image/png'],
+  caseInsensitive: true,
+}); // true
+
+// Wildcard support
+isFileTypeAllowedV2(file, {
+  allowedTypes: ['image/*'],
+  allowWildcard: true,
+}); // true
+```
+
+### validateFileBeforeUploadV2
+
+Comprehensive file validation with custom validators and error messages.
+
+```typescript
+import { validateFileBeforeUploadV2, IValidateFileOptions } from 'ts-buildkit';
+
+const file = new File(['content'], 'large.pdf', { type: 'application/pdf' });
+
+// Basic validation
+const result = validateFileBeforeUploadV2(file, {
+  maxSize: 10, // 10MB
+  allowedTypes: ['application/pdf', 'image/*'],
+  errorMessages: {
+    fileSize: 'File is too large. Maximum size is 10MB.',
+    fileType: 'Only PDF and image files are allowed.',
+  },
+});
+
+// With custom validator
+const resultWithCustom = validateFileBeforeUploadV2(file, {
+  maxSize: 5,
+  customValidator: (file) => {
+    // Custom validation logic
+    if (file.name.includes('draft')) {
+      return 'Draft files are not allowed';
+    }
+    return true;
+  },
+});
+```
+
+### isBrowser
+
+Utility function to check if code is running in a browser environment.
+
+```typescript
+import { isBrowser } from 'ts-buildkit';
+
+if (isBrowser()) {
+  // Browser-specific code
+  console.log('Running in browser');
+} else {
+  // Node.js specific code
+  console.log('Running in Node.js');
+}
+```
+
 ## Migration Guide
 
 If upgrading from an older version:
@@ -2525,6 +2682,21 @@ If upgrading from an older version:
 2. Install required peer dependencies
 3. Update any deprecated function calls
 4. Review breaking changes in the changelog
+5. Consider migrating to V2 functions for enhanced functionality
+
+### Migrating to V2 Functions
+
+```typescript
+// Old
+formatUSD(1234); // Limited to USD with fixed formatting
+
+// New
+formatUSDV2(1234, {
+  currency: 'EUR',
+  symbol: '€',
+  symbolPosition: 'after',
+}); // Full control over formatting
+```
 
 ## Support
 

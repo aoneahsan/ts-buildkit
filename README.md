@@ -7,16 +7,41 @@ A comprehensive TypeScript utility library providing 100+ helper functions for m
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-22.2.0+-green.svg)](https://nodejs.org/)
 
-## Features
+## 📚 Documentation
 
-- 🚀 **100+ Utility Functions**: Comprehensive collection of helper functions
-- 📦 **Modular Architecture**: Tree-shakeable exports for optimal bundle size
-- 🔒 **Type Safety**: Full TypeScript support with strict typing
-- 🌐 **Universal**: Works in both Node.js and browser environments
-- 🎯 **Zero Dependencies**: Core utilities have no external dependencies
-- 🔧 **Extensible**: Optional peer dependencies for advanced features
-- 📱 **Platform Aware**: Built-in support for Capacitor and mobile platforms
-- 🎮 **Domain Modules**: Specialized modules for gaming and roommate finding
+- [📖 **API Documentation**](./API_DOCUMENTATION.md) - Complete API reference with examples for all 100+ functions
+- [🔧 **API Reference**](./API.md) - Quick reference guide for common utilities
+- [🚀 **Contributing Guide**](./CONTRIBUTING.md) - Guidelines for contributors
+- [📝 **Changelog**](./CHANGELOG.md) - Version history and updates
+- [🗺️ **Roadmap**](./ROADMAP.md) - Future plans and upcoming features
+- [🔒 **Security Policy**](./SECURITY.md) - Security guidelines and reporting
+
+## ✨ Key Features
+
+### 🎯 Core Features
+
+- **100+ Utility Functions**: String manipulation, validation, date formatting, array/object utilities, and more
+- **TypeScript First**: Built with TypeScript, full type definitions, and strict mode enabled
+- **Tree-Shakeable**: Import only what you need for minimal bundle size
+- **Cross-Platform**: Works seamlessly in Node.js (>=22.2.0) and all modern browsers
+- **Zero Core Dependencies**: No external dependencies for core utilities
+- **Configurable Options**: All functions support customizable options with sensible defaults
+
+### 📦 Modular Architecture
+
+- **Main Module**: Core utilities via `ts-buildkit`
+- **Gaming Module**: `ts-buildkit/play-and-win` - Gaming types and utilities
+- **Roommate Module**: `ts-buildkit/roommate` - Roommate finding functionality
+- **Optional Packages**: `ts-buildkit/require-package/{crypto-js,dayjs,zod}` - Wrapped peer dependencies
+
+### 🔧 Advanced Capabilities
+
+- **Cryptography**: AES encryption/decryption with configurable secrets
+- **Validation**: Email, URL, phone, file upload, and custom validators
+- **Permissions**: Role-based access control with permission checking
+- **Mobile Ready**: Built-in Capacitor support for mobile apps
+- **Error Handling**: Comprehensive error types and handlers
+- **Platform Detection**: Automatic platform and device detection
 
 ## Installation
 

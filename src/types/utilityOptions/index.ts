@@ -5,7 +5,7 @@ export interface IValidateFileOptions {
   /** Maximum file size in MB. Default: 5 */
   maxSize?: number;
   /** Array of allowed MIME types. Default: ['image/png', 'image/jpeg', 'image/gif'] */
-  allowedTypes?: string[];
+  allowedTypes?: readonly string[];
   /** Custom validation function that returns true if valid, or error message if invalid */
   customValidator?: (file: File) => boolean | string;
   /** Custom error messages */
@@ -21,7 +21,7 @@ export interface IValidateFileOptions {
  */
 export interface IFileTypeOptions {
   /** Array of allowed MIME types */
-  allowedTypes?: string[];
+  allowedTypes?: readonly string[];
   /** Whether to use case-insensitive comparison. Default: true */
   caseInsensitive?: boolean;
   /** Whether to allow wildcard matching (e.g., 'image/*'). Default: false */
@@ -40,6 +40,8 @@ export interface ITruncateStringOptions {
   position?: 'end' | 'middle' | 'start';
   /** Whether to respect word boundaries. Default: false */
   wordBoundary?: boolean;
+  /** Whether to preserve complete words when truncating. Default: false */
+  preserveWords?: boolean;
 }
 
 /**
@@ -64,16 +66,22 @@ export interface ITitleCaseOptions {
 export interface IGenerateCodeOptions {
   /** Length of the code. Default: 6 */
   length?: number;
-  /** Character set to use. Default: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' */
-  charset?: string;
+  /** Character set type: 'numeric', 'alphabetic', 'alphanumeric', or 'custom'. Default: 'alphanumeric' */
+  charset?: 'numeric' | 'alphabetic' | 'alphanumeric' | 'custom';
+  /** Custom character set (when charset is 'custom'). Default: '' */
+  customCharset?: string;
+  /** Convert to lowercase. Default: true */
+  lowercase?: boolean;
+  /** Convert to uppercase. Default: false */
+  uppercase?: boolean;
   /** Prefix to add to the code. Default: '' */
   prefix?: string;
   /** Suffix to add to the code. Default: '' */
   suffix?: string;
-  /** Separator between segments if using segments. Default: '-' */
-  separator?: string;
-  /** Array of segment lengths (e.g., [3, 3] for 'ABC-DEF'). Default: null */
-  segments?: number[];
+  /** Number of segments to split the code into. Default: 1 */
+  segments?: number;
+  /** Separator between segments. Default: '-' */
+  segmentSeparator?: string;
   /** Whether to exclude ambiguous characters (0, O, I, l). Default: false */
   excludeAmbiguous?: boolean;
 }
@@ -82,12 +90,16 @@ export interface IGenerateCodeOptions {
  * Options for formatUSD and currency formatting functions
  */
 export interface ICurrencyFormatOptions {
+  /** Currency code (e.g., 'USD', 'EUR'). Default: 'USD' */
+  currency?: string;
   /** Currency symbol. Default: '$' */
   symbol?: string;
+  /** Divide amount by this value (e.g., 100 for cents to dollars). Default: 100 */
+  divideBy?: number;
+  /** Number of decimal places. Default: 2 */
+  decimalPlaces?: number;
   /** Symbol position: 'before' or 'after'. Default: 'before' */
   symbolPosition?: 'before' | 'after';
-  /** Number of decimal places. Default: 2 */
-  decimals?: number;
   /** Decimal separator. Default: '.' */
   decimalSeparator?: string;
   /** Thousands separator. Default: ',' */
@@ -184,7 +196,7 @@ export interface IZTKGlobalConfig {
   /** Default file upload configuration */
   fileUpload?: {
     maxSize?: number;
-    allowedTypes?: string[];
+    allowedTypes?: readonly string[];
   };
   /** Default date/time formatting */
   dateTime?: {

@@ -192,6 +192,13 @@ export const imageUrlToBase64 = async (
 ): Promise<string> => {
   try {
     if (url !== undefined && isZNonEmptyString(url)) {
+      // Check if fetch is available (browser or modern Node.js)
+      if (typeof fetch === 'undefined') {
+        throw new Error(
+          'imageUrlToBase64: fetch API is not available in this environment'
+        );
+      }
+
       // Getting authToken from Storage.
       const headers = new Headers({
         'Content-Type': RequestContentTypeEnum.Json,
@@ -291,6 +298,79 @@ export const generateUniqueCode = (length: number = 6): string => {
     code += characters?.[randomIndex];
   }
   return code?.toLowerCase();
+};
+
+/**
+ * Generates a unique code with configurable options.
+ * @param {IGenerateCodeOptions} options - Code generation options.
+ * @returns {string} The generated code.
+ */
+export const generateUniqueCodeV2 = (
+  options?: IGenerateCodeOptions
+): string => {
+  const defaultOptions: IGenerateCodeOptions = {
+    length: 6,
+    charset: 'alphanumeric',
+    customCharset: '',
+    lowercase: true,
+    uppercase: false,
+    excludeAmbiguous: false,
+    prefix: '',
+    suffix: '',
+    segments: 1,
+    segmentSeparator: '-',
+  };
+
+  const config = { ...defaultOptions, ...options };
+
+  // Define character sets
+  const charsets: Record<string, string> = {
+    numeric: '0123456789',
+    alphabetic: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    alphanumeric:
+      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+    custom: config.customCharset || '',
+  };
+
+  let characters =
+    charsets[config.charset || 'alphanumeric'] || charsets.alphanumeric;
+
+  // Exclude ambiguous characters if requested
+  if (config.excludeAmbiguous) {
+    characters = characters.replace(/[0O1lI]/g, '');
+  }
+
+  // Generate segments
+  const segments: string[] = [];
+  const totalSegments = config.segments || 1;
+  const totalLength = config.length || 6;
+  const segmentLength = Math.floor(totalLength / totalSegments);
+
+  for (let s = 0; s < totalSegments; s++) {
+    let segment = '';
+    const currentSegmentLength =
+      s === totalSegments - 1
+        ? totalLength - segmentLength * (totalSegments - 1)
+        : segmentLength;
+
+    for (let i = 0; i < currentSegmentLength; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      segment += characters[randomIndex];
+    }
+
+    // Apply case transformations
+    if (config.lowercase && !config.uppercase) {
+      segment = segment.toLowerCase();
+    } else if (config.uppercase && !config.lowercase) {
+      segment = segment.toUpperCase();
+    }
+
+    segments.push(segment);
+  }
+
+  // Join segments and add prefix/suffix
+  const code = segments.join(config.segmentSeparator || '-');
+  return `${config.prefix || ''}${code}${config.suffix || ''}`;
 };
 
 /**
@@ -797,6 +877,56 @@ export const truncateString = (text: string, length: number = 10): string => {
 };
 
 /**
+ * Truncates a string with configurable options.
+ * @param {string} text - The text to truncate.
+ * @param {ITruncateStringOptions} options - Truncation options.
+ * @returns {string} The truncated string.
+ */
+export const truncateStringV2 = (
+  text: string,
+  options?: ITruncateStringOptions
+): string => {
+  const defaultOptions: ITruncateStringOptions = {
+    length: 10,
+    ellipsis: '...',
+    position: 'end',
+    preserveWords: false,
+  };
+
+  const config = { ...defaultOptions, ...options };
+  const maxLength = config.length || 10;
+  const ellipsis = config.ellipsis || '...';
+
+  if (!text || text.length <= maxLength) {
+    return text || '';
+  }
+
+  if (config.position === 'middle') {
+    const halfLength = Math.floor((maxLength - ellipsis.length) / 2);
+    const start = text.slice(0, halfLength);
+    const end = text.slice(-halfLength);
+    return `${start}${ellipsis}${end}`;
+  }
+
+  if (config.position === 'start') {
+    return `${ellipsis}${text.slice(-(maxLength - ellipsis.length))}`;
+  }
+
+  // Default to 'end'
+  let truncated = text.slice(0, maxLength - ellipsis.length);
+
+  // Preserve word boundaries if requested
+  if (config.preserveWords || config.wordBoundary) {
+    const lastSpace = truncated.lastIndexOf(' ');
+    if (lastSpace > 0) {
+      truncated = truncated.slice(0, lastSpace);
+    }
+  }
+
+  return `${truncated}${ellipsis}`;
+};
+
+/**
  * Detects the device and view mode.
  * @returns {Object} The device and view mode.
  */
@@ -806,6 +936,11 @@ export const detectDeviceAndViewMode = (): {
   isAndroid: boolean | 0;
   androidDesktopMode: boolean | 0;
 } => {
+  // Return default values if not in browser environment
+  if (!isBrowser()) {
+    return { webkitVer: 0, isGoogle: 0, isAndroid: 0, androidDesktopMode: 0 };
+  }
+
   const match = /WebKit\/([0-9]+)|$/.exec(navigator.appVersion);
   const webkitVer = match ? parseInt(match[1], 10) : 0; // also matches AppleWebKit
   const isGoogle = webkitVer && navigator.vendor.indexOf('Google') === 0; // Also true for Opera Mobile and maybe others
@@ -846,7 +981,9 @@ export const isFileTypeAllowed = (file: File, type = 'svg'): boolean => {
   if (type === 'svg') {
     return svgIconTypes?.includes(file?.type?.toLowerCase());
   } else if (type === 'other') {
-    return allowedImageTypes?.includes(file?.type?.toLowerCase());
+    return (allowedImageTypes as readonly string[])?.includes(
+      file?.type?.toLowerCase()
+    );
   }
   return false;
 };
@@ -864,30 +1001,30 @@ export const isFileTypeAllowedV2 = (
   if (!file || !file.type) return false;
 
   const defaultOptions: IFileTypeOptions = {
-    allowedTypes: allowedImageTypes,
+    allowedTypes: [...allowedImageTypes],
     caseInsensitive: true,
     allowWildcard: false,
   };
 
   const config = { ...defaultOptions, ...options };
-  const fileType = config.caseInsensitive
-    ? file.type.toLowerCase()
-    : file.type;
+  const fileType = config.caseInsensitive ? file.type.toLowerCase() : file.type;
 
   // Check if file type is in allowed types
-  return config.allowedTypes?.some((allowedType) => {
-    const compareType = config.caseInsensitive
-      ? allowedType.toLowerCase()
-      : allowedType;
+  return (
+    config.allowedTypes?.some((allowedType) => {
+      const compareType = config.caseInsensitive
+        ? allowedType.toLowerCase()
+        : allowedType;
 
-    if (config.allowWildcard && compareType.includes('*')) {
-      // Handle wildcard matching (e.g., 'image/*')
-      const [prefix] = compareType.split('*');
-      return fileType.startsWith(prefix);
-    }
+      if (config.allowWildcard && compareType.includes('*')) {
+        // Handle wildcard matching (e.g., 'image/*')
+        const [prefix] = compareType.split('*');
+        return fileType.startsWith(prefix);
+      }
 
-    return fileType === compareType;
-  }) || false;
+      return fileType === compareType;
+    }) || false
+  );
 };
 
 /**
@@ -899,6 +1036,14 @@ export const getImageDimensions = async (
   file: File
 ): Promise<{ width: number; height: number } | null> => {
   if (!file) return null;
+
+  // Check if running in browser environment
+  if (!isBrowser()) {
+    console.warn(
+      'getImageDimensions: This function requires a browser environment'
+    );
+    return null;
+  }
 
   return await new Promise((resolve) => {
     const img = document.createElement('img');
@@ -1006,7 +1151,7 @@ export const imageTypeAllowedV2 = (
   options?: IFileTypeOptions
 ): boolean => {
   return isFileTypeAllowedV2(file, {
-    allowedTypes: allowedImageTypes,
+    allowedTypes: [...allowedImageTypes],
     ...options,
   });
 };
@@ -1055,7 +1200,7 @@ export const validateFileBeforeUploadV2 = (
 } => {
   const defaultOptions: IValidateFileOptions = {
     maxSize: 5, // 5MB default
-    allowedTypes: allowedImageTypes,
+    allowedTypes: [...allowedImageTypes],
     errorMessages: {
       fileSize: 'File size exceeds the maximum allowed size',
       fileType: 'File type is not allowed',
@@ -1064,7 +1209,10 @@ export const validateFileBeforeUploadV2 = (
   };
 
   const config = { ...defaultOptions, ...options };
-  const errorMessages = { ...defaultOptions.errorMessages, ...options?.errorMessages };
+  const errorMessages = {
+    ...defaultOptions.errorMessages,
+    ...options?.errorMessages,
+  };
 
   // Check file size
   const fileSizeInMB = file.size / 1024 / 1024;
@@ -1098,7 +1246,10 @@ export const validateFileBeforeUploadV2 = (
       return {
         status: 'error',
         type: 'CUSTOM_ERROR',
-        message: typeof customResult === 'string' ? customResult : errorMessages.custom,
+        message:
+          typeof customResult === 'string'
+            ? customResult
+            : errorMessages.custom,
       };
     }
   }
@@ -1246,6 +1397,52 @@ export const createRegexMatch = (
  */
 export const formatUSD = (stripeAmount: number) => {
   return `$${(stripeAmount / 100).toFixed(2)}`;
+};
+
+/**
+ * Formats a stripe amount to a currency string with configurable options.
+ * @param {number} stripeAmount - The amount in stripe format (cents).
+ * @param {ICurrencyFormatOptions} options - Currency formatting options.
+ * @returns {string} The formatted currency string.
+ */
+export const formatUSDV2 = (
+  stripeAmount: number,
+  options?: ICurrencyFormatOptions
+): string => {
+  const defaultOptions: ICurrencyFormatOptions = {
+    currency: 'USD',
+    symbol: '$',
+    divideBy: 100,
+    decimalPlaces: 2,
+    thousandsSeparator: ',',
+    decimalSeparator: '.',
+    symbolPosition: 'before',
+    includeSpace: false,
+  };
+
+  const config = { ...defaultOptions, ...options };
+
+  const amount = stripeAmount / (config.divideBy || 100);
+  let formattedAmount = amount.toFixed(config.decimalPlaces || 2);
+
+  // Add thousands separator if enabled
+  if (config.thousandsSeparator) {
+    const parts = formattedAmount.split('.');
+    parts[0] = parts[0].replace(
+      /\B(?=(\d{3})+(?!\d))/g,
+      config.thousandsSeparator
+    );
+    formattedAmount = parts.join(config.decimalSeparator || '.');
+  }
+
+  // Apply symbol position
+  const space = config.includeSpace ? ' ' : '';
+  const symbol = config.symbol || '$';
+  if (config.symbolPosition === 'before') {
+    return `${symbol}${space}${formattedAmount}`;
+  } else {
+    return `${formattedAmount}${space}${symbol}`;
+  }
 };
 
 /**
@@ -1459,6 +1656,18 @@ export const getTimeInUnit = ({
     default:
       return valueInSeconds;
   }
+};
+
+/**
+ * Checks if the code is running in a browser environment.
+ * @returns {boolean} - Returns `true` if running in browser; otherwise, `false`.
+ */
+export const isBrowser = (): boolean => {
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined' &&
+    typeof navigator !== 'undefined'
+  );
 };
 
 /**
